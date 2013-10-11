@@ -21,6 +21,7 @@
 		920701BA1806F8CC000ACA58 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9207019C1806F8CC000ACA58 /* UIKit.framework */; };
 		920701C21806F8CC000ACA58 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 920701C01806F8CC000ACA58 /* InfoPlist.strings */; };
 		920701C41806F8CC000ACA58 /* GionTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 920701C31806F8CC000ACA58 /* GionTests.m */; };
+		9214297218078931008E0F76 /* TestViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9214297118078931008E0F76 /* TestViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,6 +54,8 @@
 		920701BF1806F8CC000ACA58 /* GionTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GionTests-Info.plist"; sourceTree = "<group>"; };
 		920701C11806F8CC000ACA58 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		920701C31806F8CC000ACA58 /* GionTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GionTests.m; sourceTree = "<group>"; };
+		9214297018078931008E0F76 /* TestViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestViewController.h; sourceTree = "<group>"; };
+		9214297118078931008E0F76 /* TestViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -118,6 +121,8 @@
 				920701AD1806F8CC000ACA58 /* ViewController.h */,
 				920701AE1806F8CC000ACA58 /* ViewController.m */,
 				920701B01806F8CC000ACA58 /* Images.xcassets */,
+				9214297018078931008E0F76 /* TestViewController.h */,
+				9214297118078931008E0F76 /* TestViewController.m */,
 				9207019F1806F8CC000ACA58 /* Supporting Files */,
 			);
 			path = Gion;
@@ -251,6 +256,7 @@
 			files = (
 				920701AF1806F8CC000ACA58 /* ViewController.m in Sources */,
 				920701A91806F8CC000ACA58 /* AppDelegate.m in Sources */,
+				9214297218078931008E0F76 /* TestViewController.m in Sources */,
 				920701A51806F8CC000ACA58 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -460,6 +466,7 @@
 				920701C91806F8CC000ACA58 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		920701CA1806F8CD000ACA58 /* Build configuration list for PBXNativeTarget "GionTests" */ = {
 			isa = XCConfigurationList;
@@ -468,6 +475,7 @@
 				920701CC1806F8CD000ACA58 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

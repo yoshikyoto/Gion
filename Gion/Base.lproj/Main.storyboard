@@ -4,10 +4,10 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3742"/>
     </dependencies>
     <scenes>
-        <!--View Controller - テスト-->
+        <!--Test View Controller - テスト-->
         <scene sceneID="2aX-sJ-W0c">
             <objects>
-                <viewController id="FMv-Hp-tyl" sceneMemberID="viewController">
+                <viewController id="FMv-Hp-tyl" customClass="TestViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="RLB-fl-ajm"/>
                         <viewControllerLayoutGuide type="bottom" id="UA9-pp-4TN"/>
@@ -21,7 +21,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xaR-Yy-ZG9" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1390" y="-539"/>
+            <point key="canvasLocation" x="494" y="-784"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="eRZ-w7-td5">
@@ -41,7 +41,7 @@
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="s8y-NM-Znj" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="856" y="-212"/>
+            <point key="canvasLocation" x="-138" y="-80"/>
         </scene>
         <!--View Controller - 辞書-->
         <scene sceneID="QZ8-Ef-a7I">
@@ -60,7 +60,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rdw-4c-2Y3" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="380" y="-539"/>
+            <point key="canvasLocation" x="494" y="19"/>
         </scene>
         <!--View Controller - 成績-->
         <scene sceneID="tDQ-ip-xm6">
@@ -79,7 +79,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0Eg-gw-Bcg" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1390" y="114"/>
+            <point key="canvasLocation" x="494" y="794"/>
         </scene>
     </scenes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
