@@ -60,7 +60,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rdw-4c-2Y3" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="494" y="19"/>
+            <point key="canvasLocation" x="494" y="7"/>
         </scene>
         <!--View Controller - 成績-->
         <scene sceneID="tDQ-ip-xm6">

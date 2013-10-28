@@ -29,8 +29,28 @@
 	// Do any additional setup after loading the view.
     
     // ブランチ sakamoto で作業しました。
-    
+    UILabel *label = [[UILabel alloc] init];
+    label.text = @"tesuto";
+    label.frame = CGRectMake(0, 0, 200, 50);
+    [[self view] addSubview:label];
 }
+
+/*
+ 
+ インスタンス.メッソド名(引数)
+ 
+ [インスタンス メソッド名:引数]
+ 
+ 
+ def メソッド名
+ 　メソッドの内容
+ end
+ 
+ -(戻り値の型)メソッド名{
+  メソッドの内容
+ }
+ 
+ */
 
 - (void)didReceiveMemoryWarning
 {
