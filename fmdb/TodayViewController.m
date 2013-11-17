@@ -96,10 +96,10 @@
     
     // テスト画面に進むボタン
     UIButton *question_button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    question_button.frame = CGRectMake(100, position_y, 120, 30);
+    question_button.frame = CGRectMake(100, 360, 120, 30);
     [question_button setTitle:@"テストへ！" forState:UIControlStateNormal];
     [question_button addTarget:self action:@selector(viewQuestion:)forControlEvents:UIControlEventTouchUpInside];
-    [tango_view addSubview:question_button];
+    [[self view] addSubview:question_button];
     position_y += 30;
     
     position_y += 10;
