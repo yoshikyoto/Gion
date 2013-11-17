@@ -97,6 +97,7 @@
     // 選択した答えを記録
     _selectAnswertInt = sender.tag;
     
+    /*
     UILabel *result_label = [[UILabel alloc] initWithFrame:CGRectMake(110, 160, 100, 100)];
     result_label.textColor = [UIColor redColor];
     result_label.textAlignment = NSTextAlignmentCenter;
@@ -105,12 +106,12 @@
     result_text_label.textColor = [UIColor redColor];
     result_text_label.textAlignment = NSTextAlignmentCenter;
     result_text_label.font = [UIFont boldSystemFontOfSize:40];
+     */
+    UIImageView *result_image = [[UIImageView alloc] initWithFrame:CGRectMake(60, 200, 200, 240)];
     
     if(sender.tag == _correctAnswerInt){
         // 正解した場合
-        result_label.text = @"◯";
-        result_label.font = [UIFont boldSystemFontOfSize:80];
-        result_text_label.text = @"　正解！";
+        [result_image setImage:[UIImage imageNamed:@"right.png"]];
         _result = true; // 正解したことを記憶
         // 正解のカウントを増やす
         [_text rightAnswerSelected];
@@ -118,14 +119,11 @@
         qnc.correctCount++;
     }else{
         // 間違えた場合
-        result_label.text = @"×";
-        result_label.font = [UIFont boldSystemFontOfSize:120];
-        result_text_label.text = @"　ハズレ…";
+        [result_image setImage:[UIImage imageNamed:@"wrong.png"]];
         _result = false; // 間違えたことを記憶
         [_text wrongAnswerSelected];
     }
-    [[self view] addSubview:result_label];
-    [[self view] addSubview:result_text_label];
+    [[self view] addSubview:result_image];
     // ◯×表示してから少し時間おく
     
     [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:1]];

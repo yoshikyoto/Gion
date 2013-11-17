@@ -25,6 +25,7 @@
 @property (nonatomic,retain) IBOutlet UILabel *right;
 @property (nonatomic,retain) IBOutlet UILabel *wrong;
 
+
 - (id)initWithText:(Text *)t;
 
 

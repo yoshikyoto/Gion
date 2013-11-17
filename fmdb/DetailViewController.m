@@ -54,6 +54,13 @@
      */
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    //[self.tableView reloadData];
+}
+
+
 - (id)initWithText:(Text *)t{
     self = [super init];
     if(self){
@@ -102,6 +109,7 @@
         UILabel *right_count_label = [[UILabel alloc] initWithFrame:CGRectMake(0, 390, 160, 20)];
         right_count_label.textAlignment = NSTextAlignmentCenter;
         right_count_label.text = [NSString stringWithFormat:@"%d回", text.right];
+        NSLog(@"right->%d",text.right);
         [[self view] addSubview:right_count_label];
         
         // 間違えた…
@@ -113,6 +121,7 @@
         UILabel *wrong_count_label = [[UILabel alloc] initWithFrame:CGRectMake(161, 390, 160, 20)];
         wrong_count_label.textAlignment = NSTextAlignmentCenter;
         wrong_count_label.text = [NSString stringWithFormat:@"%d回", text.wrong];
+        NSLog(@"wrong->%d",text.wrong);
         [[self view] addSubview:wrong_count_label];
     }
     return self;

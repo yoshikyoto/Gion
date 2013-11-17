@@ -25,12 +25,14 @@
     
     right++;
     [self updateDatabase];
+    NSLog(@"right:%d",right);
 }
 
 - (void)wrongAnswerSelected{
     
     wrong++;
     [self updateDatabase];
+    NSLog(@"wrong:%d",wrong);
 }
 
 - (void)updateDatabase{
@@ -66,9 +68,11 @@
     if([db executeQuery:sql]){
         NSLog(@"更新できた？");
     }else{
-        NSLog(@"更新できなかった");
+        NSLog(@"更新できなかった");NSLog(@"Error %@ - %d", [db lastErrorMessage], [db lastErrorCode]);
+
     }
     //更新できなかった時の処理
+    NSLog(@"Error %@ - %d", [db lastErrorMessage], [db lastErrorCode]);
     [db close];
 }
 

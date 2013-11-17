@@ -83,8 +83,8 @@
     // 初回起動時用の初期化
     [md setObject:date forKey:@"DATE"]; // DATEは今回の起動日時を記録．ただし今日2回目以降の起動であれば更新されない．
     [md setObject:date forKey:@"LASTDATE"]; // LASTDATEは前回の起動日時を記録．ただし今日2回目以降の起動であれば更新されない．
-    [md setObject:@"0" forKey:@"RUNNING"]; // RUNNINGは今の連続起動日数
-    [md setObject:@"0" forKey:@"RUNNINGMAX"]; // RUNNINGMAXは過去で一番長い連続起動日数
+    [md setObject:@"1" forKey:@"RUNNING"]; // RUNNINGは今の連続起動日数
+    [md setObject:@"1" forKey:@"RUNNINGMAX"]; // RUNNINGMAXは過去で一番長い連続起動日数
     [defaults registerDefaults:md];
     
     
@@ -125,7 +125,7 @@
             if(runningmax<running) {
                 [defaults setInteger:running forKey:@"RUNNINGMAX"];
             }
-            [defaults setInteger:0 forKey:@"RUNNING"];
+            [defaults setInteger:1 forKey:@"RUNNING"];
         }
         NSLog( @"最高継続%d日",[defaults integerForKey:@"RUNNINGMAX"]);
     }

@@ -43,10 +43,10 @@
             // 正解したかどうかで背景を色分けしてみる
             if(qvc.result){
                 // 正解
-                question_space.backgroundColor = [UIColor colorWithRed:0.85 green:0.85 blue:1.0 alpha:1.0];
+                question_space.backgroundColor =[UIColor colorWithRed:1.0 green:0.85 blue:0.85 alpha:1.0];
             }else{
                 // 間違い
-                question_space.backgroundColor = [UIColor colorWithRed:1.0 green:0.85 blue:0.85 alpha:1.0];
+                question_space.backgroundColor = [UIColor colorWithRed:0.85 green:0.85 blue:1.0 alpha:1.0];
             }
             position_y += 41;
             

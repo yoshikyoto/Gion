@@ -10,7 +10,7 @@
 #import "QuestionViewController.h"
 #import "QuestionNavigationController.h"
 #import "FMDatabase.h"
-//#import "FMResultSet.h"
+#import "FMResultSet.h"
 #import "Text.h"
 #import "DetailViewController.h"
 
@@ -38,7 +38,7 @@
 	// Do any additional setup after loading the view.
     //CGRect screen_rect = [UIScreen mainScreen].applicationFrame;
     
-
+    
     
     // 単語を表示するためのビュー (デバッグ用に色をつけてます)
     UIScrollView *tango_view = [[UIScrollView alloc] init];
@@ -50,7 +50,7 @@
     GionTabBarController *tab_bar = (GionTabBarController *)self.tabBarController;
     _allTexts = tab_bar.texts;
     //_selectedTexts = tab_bar.texts;
-
+    
     _todaysTexts = [[NSMutableArray alloc] init];
     [self initTodaysTexts];
     //_todaysTexts = [self randomQuestion:5 :_todaysTexts];
@@ -138,31 +138,116 @@
      ******************************************************************/
     
     // SQL文を生成　itemというテーブルの right属性と、wrong属性に、正解数、間違い数が入っている。
-    // これは、全部のデータを取ってくる文
-    NSString *sql_string = [NSString stringWithFormat:@"SELECT * FROM item WHERE right >= 0, wrong >= 0"];
+    // これは、未収得の単語を取ってくる文
+    NSString *sql_unchecked = [NSString stringWithFormat:@"SELECT * FROM text WHERE right = 0 AND wrong = 0"];
+    
+    // これは、間違えた単語を取ってくる文
+    NSString *sql_missString = [NSString stringWithFormat:@"SELECT * FROM text WHERE right = 0 AND wrong >= 1"];
+    
+    // これは、正解したことのある単語を取ってくる文
+    NSString *sql_correctString = [NSString stringWithFormat:@"SELECT * FROM text WHERE right >=1 AND wrong >= 0"];
     
     // データベースを開いて、SQL文を実行
     [db open];
-    FMResultSet* rs = [db executeQuery:sql_string];
-    // 得られた結果を result_texts という配列に入れる
-    NSMutableArray *result_texts = [[NSMutableArray alloc] init]; // インスタンス生成
-    while([rs next]){
+    FMResultSet* rsUC = [db executeQuery:sql_unchecked];
+    FMResultSet* rsMS = [db executeQuery:sql_missString];
+    
+    // 得られた結果を unchecked_texts という配列に入れる
+    NSMutableArray *unchecked_texts = [[NSMutableArray alloc] init]; // インスタンス生成
+    NSLog(@"unchecked な単語");
+    while([rsUC next]){
         Text *text = [[Text alloc] init];
         
-        text.textid = [rs intForColumn:@"textid"];
-        text.text = [rs stringForColumn:@"text"];
-        text.word = [rs stringForColumn:@"word"];
-        text.meaning = [rs stringForColumn:@"meaning"];
-        text.right = [rs intForColumn:@"right"];
-        text.wrong = [rs intForColumn:@"wrong"];
+        text.textid = [rsUC intForColumn:@"textid"];
+        text.text = [rsUC stringForColumn:@"text"];
+        text.word = [rsUC stringForColumn:@"word"];
+        text.meaning = [rsUC stringForColumn:@"meaning"];
+        text.right = [rsUC intForColumn:@"right"];
+        text.wrong = [rsUC intForColumn:@"wrong"];
         
-        [result_texts addObject:text];
+        [unchecked_texts addObject:text];
+        NSLog(@"%@ %d %d", text.word, text.right, text.wrong);
     }
-    NSLog(@"%d個の単語が見つかりました", [result_texts count]);
+    NSLog(@"%d個の単語が見つかりました", [unchecked_texts count]);
     
-    // ランダムで5つ選ぶ (PhyoさんのrandomQuestion関数使用) → _todaysTexts に追加する。
-    NSMutableArray *random_texts = [self randomQuestion:5 :result_texts];
-    [_todaysTexts addObjectsFromArray:random_texts];
+    // 得られた結果を missString_texts という配列に入れる
+    NSMutableArray *missString_texts = [[NSMutableArray alloc] init];
+    NSLog(@"missing な単語");
+    while ([rsMS next]) {
+        Text *text = [[Text alloc] init];
+        
+        text.textid = [rsMS intForColumn:@"textid"];
+        text.text = [rsMS stringForColumn:@"text"];
+        text.word = [rsMS stringForColumn:@"word"];
+        text.meaning = [rsMS stringForColumn:@"meaning"];
+        text.right = [rsMS intForColumn:@"right"];
+        text.wrong = [rsMS intForColumn:@"wrong"];
+        
+        [missString_texts addObject:text];
+        NSLog(@"%@", text.word);
+    }
+    NSLog(@"%d個の単語が見つかりました", [missString_texts count]);
+    
+    // 各配列の要素数を確認
+    int UCint = [unchecked_texts count];
+    int MSint = [missString_texts count];
+    NSLog(@"ucint %d, msint %d", UCint, MSint);
+    
+    // 合計で5つの単語が表示されるように調整（未収得単語・間違い単語を合わせて5つに満たない場合は正解した単語で穴埋め）
+    if (UCint >= 3 && MSint >= 2){
+        UCint = 3, MSint = 2;
+    }else if (UCint < 3 && UCint + MSint >= 5) {
+        MSint = 5 - UCint;
+    }else if (MSint < 2 && UCint + MSint >= 5) {
+        UCint = 5 - MSint;
+    }
+    
+    NSLog(@"ucint %d, msint %d", UCint, MSint);
+    
+    // 未収得単語をランダムで3つ選ぶ (PhyoさんのrandomQuestion関数使用) → _todaysTexts に追加する。
+    NSMutableArray *randomUC_texts = [self randomQuestion: UCint :unchecked_texts];
+    //[_todaysTexts addObjectsFromArray:randomBC_texts];
+    
+    // 間違えた単語を2つ選ぶ → _todaysTexts に追加する
+    NSMutableArray *randomMS_texts = [self randomQuestion: MSint :missString_texts];
+    //[_todaysTexts addObjectsFromArray:randomMS_texts];
+    
+    // _todaysTexts = [randomUC_texts arrayByAddingObjectsFromArray:randomMS_texts];
+    [self printArray:randomUC_texts];
+    [self printArray:randomMS_texts];
+    [_todaysTexts addObjectsFromArray:randomUC_texts];
+    [_todaysTexts addObjectsFromArray:randomMS_texts];
+    
+    NSLog(@"%d", [_todaysTexts count]);
+    [self printArray:_todaysTexts];
+    
+    //正解した単語で穴埋め
+    if (UCint + MSint < 5) {
+        FMResultSet* rsCS = [db executeQuery:sql_correctString];
+        NSMutableArray *correctString_texts = [[NSMutableArray alloc] init];
+        while ([rsCS next]) {
+            Text *text = [[Text alloc] init];
+            
+            text.textid = [rsCS intForColumn:@"textid"];
+            text.text = [rsCS stringForColumn:@"text"];
+            text.word = [rsCS stringForColumn:@"word"];
+            text.meaning = [rsCS stringForColumn:@"meaning"];
+            text.right = [rsCS intForColumn:@"right"];
+            text.wrong = [rsCS intForColumn:@"wrong"];
+            
+            [correctString_texts addObject:text];
+        }
+        NSMutableArray *randomCS_texts = [self randomQuestion: 5 - UCint  - MSint :correctString_texts];
+        
+        /* 増野のコード
+         NSMutableArray *todaysTextsPro = [randomUC_texts arrayByAddingObjectsFromArray:randomMS_texts];
+         _todaysTexts = [todaysTextsPro arrayByAddingObjectsFromArray:randomCS_texts];
+         */
+        [self printArray:_todaysTexts];
+        [_todaysTexts addObjectsFromArray:randomCS_texts];
+        [self printArray:randomCS_texts];
+        NSLog(@"不足分追加後 %d", [_todaysTexts count]);
+    }
     
     // 配列を出力してみる
     [self printArray:_todaysTexts];
@@ -170,11 +255,11 @@
     // データベースを閉じる
     [db close];
     
-    NSLog(@"%s 課題 ここまで", __func__);
+    NSLog(@"%s 課題 ここまで増野範囲", __func__);
 }
 
 - (NSMutableArray *)randomQuestion:(int)n :(NSMutableArray *)array{
-    NSLog(@"ここからスタート");
+    NSLog(@"ここからスタートpyoさん範囲");
     /*------------------------------------------------------------------------------------------------------------------------------------
      Phyo さんへの課題　目標 NSMutableArray の理解
      mTexts は、NSMutableArray というクラスのインスタンス
@@ -198,42 +283,42 @@
      ----------------------------------------------------------------------------------------------------------------------------------*/
     // ここからコードを書き始めてください。
     // １．新しく NSMutableArray のインスタンスを作る！
-    _todaysTexts = [[NSMutableArray alloc] init];
+    //_todaysTexts = [[NSMutableArray alloc] init];
     
     
     // ２．arc4random() の値を 5 つ NSLogで出力してみよう！
     // ヒント：NSLog(@"%d", arc4random());
     // http://tryworks-design.com/?p=280
     //重複しない
-    NSMutableArray *all = [_allTexts mutableCopy];
+    NSMutableArray *all = [array mutableCopy];
     NSMutableArray *result_array = [[NSMutableArray alloc] init];
-
+    
     int a[n];
     for (int i=0; i<n;i++){
         a[i] = arc4random() % [all count];
         /*
-        int x = a[i];
-        for (i = 0; i<5; i++){
-           if(a[i] ==x)
-                break;
-        }
+         int x = a[i];
+         for (i = 0; i<5; i++){
+         if(a[i] ==x)
+         break;
+         }
          */
         [result_array addObject:[all objectAtIndex:a[i]]];
         [all removeObjectAtIndex:a[i]];
     }
     
     /* 乱数を出力する
-    for (int i = 0 ; i<5; i++){
-        NSLog(@"%d",a[i]);
-    }
+     for (int i = 0 ; i<5; i++){
+     NSLog(@"%d",a[i]);
+     }
      */
     
     /*
-    for (int i=0; i<5;i++){
-        Text *t = [_allTexts objectAtIndex:a[i]];
-        NSLog(@"%@", t.text);
-        [_todaysTexts addObject:t];
-    }
+     for (int i=0; i<5;i++){
+     Text *t = [_allTexts objectAtIndex:a[i]];
+     NSLog(@"%@", t.text);
+     [_todaysTexts addObject:t];
+     }
      */
     return result_array;
 }
@@ -280,7 +365,7 @@
     
     QuestionNavigationController *qnc = [[QuestionNavigationController alloc] initWithRootViewController:qvc];
     qnc.allTexts = _allTexts;
-    qnc.selectedTexts = after;
+    qnc.selectedTexts = _todaysTexts;
     
     [self presentViewController:qnc animated:YES completion:nil];
 }

@@ -153,6 +153,13 @@ NSArray *sectionList;
 
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [self.tableView reloadData];
+}
+
+
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
@@ -223,12 +230,17 @@ NSArray *sectionList;
 // データが選択されたときに詳細画面に移動する
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    DetailViewController *detailViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"DetailView"];
     NSString *sectionName = [sectionList objectAtIndex:indexPath.section];
     NSArray *items = [dataSource objectForKey:sectionName];
-
-    detailViewController.title = @"辞書 - ";
-    detailViewController.text = [items objectAtIndex:indexPath.row];
+    Text *sender_text = [items objectAtIndex:indexPath.row];
+    
+    DetailViewController *detailViewController = [[DetailViewController alloc] initWithText:sender_text];
+    //DetailViewController *detailViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"DetailView"];
+    //NSString *sectionName = [sectionList objectAtIndex:indexPath.section];
+    //NSArray *items = [dataSource objectForKey:sectionName];
+    
+    //detailViewController.title = @"辞書 - ";
+    //detailViewController.text = [items objectAtIndex:indexPath.row];
     [self.navigationController pushViewController:detailViewController animated:YES];
 }
 
