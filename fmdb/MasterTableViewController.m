@@ -51,7 +51,7 @@ NSArray *sectionList;
     
     // データベースを扱う変数を定義しを初期化
     FMDatabase* db = [FMDatabase databaseWithPath:writableDBPath];
-
+    
     // データベースを開く．開けなかったらログを吐く
     if(![db open])
     {
@@ -63,7 +63,7 @@ NSArray *sectionList;
     // SQL文を生成．ここではすべてをid順に持ってくるという文
     NSString* sql = @"SELECT * FROM text ORDER BY word;";
     FMResultSet* rs = [db executeQuery:sql];
-
+    
     // データのTextクラスを初期化
     mTexts = [[NSMutableArray alloc] init];
     
@@ -114,8 +114,8 @@ NSArray *sectionList;
         } else if ([text.word hasPrefix:@"わ"] == YES || [text.word hasPrefix:@"を"] == YES || [text.word hasPrefix:@"ん"] == YES) {
             [waGyo addObject:text];
         }
-
-
+        
+        
     }
     
     [rs close];
@@ -134,31 +134,38 @@ NSArray *sectionList;
     // データベースをロード
     [self loadDataFromDB];
     
-    sectionList = [NSArray arrayWithObjects:@"あ行", @"か行", @"さ行", @"た行", @"な行", @"は行",@"ま行",@"や行",@"ら行",@"わ行",nil];
-//    NSArray *datas = [NSArray arrayWithObjects:aGyo, kaGyo, saGyo, taGyo, naGyo, haGyo, maGyo, yaGyo, raGyo, waGyo, nil];
+    sectionList = [NSArray arrayWithObjects:@"あ", @"か", @"さ", @"た", @"な", @"は",@"ま",@"や",@"ら",@"わ",nil];
+    //    sectionList = [NSArray arrayWithObjects:@"あ行", @"か行", @"さ行", @"た行", @"な行", @"は行",@"ま行",@"や行",@"ら行",@"わ行",nil];
+    //    NSArray *datas = [NSArray arrayWithObjects:aGyo, kaGyo, saGyo, taGyo, naGyo, haGyo, maGyo, yaGyo, raGyo, waGyo, nil];
     //dataSource = [NSDictionary dictionaryWithObjects:datas forKeys:sectionList];
     dataSource = [NSDictionary dictionaryWithObjectsAndKeys:
-                  aGyo, @"あ行",
-                  kaGyo, @"か行",
-                  saGyo, @"さ行",
-                  taGyo, @"た行",
-                  naGyo, @"な行",
-                  haGyo, @"は行",
-                  maGyo, @"ま行",
-                  yaGyo, @"や行",
-                  raGyo, @"ら行",
-                  waGyo, @"わ行",
+                  aGyo, @"あ",
+                  kaGyo, @"か",
+                  saGyo, @"さ",
+                  taGyo, @"た",
+                  naGyo, @"な",
+                  haGyo, @"は",
+                  maGyo, @"ま",
+                  yaGyo, @"や",
+                  raGyo, @"ら",
+                  waGyo, @"わ",
                   nil];
+    /*
+     dataSource = [NSDictionary dictionaryWithObjectsAndKeys:
+     aGyo, @"あ行",
+     kaGyo, @"か行",
+     saGyo, @"さ行",
+     taGyo, @"た行",
+     naGyo, @"な行",
+     haGyo, @"は行",
+     maGyo, @"ま行",
+     yaGyo, @"や行",
+     raGyo, @"ら行",
+     waGyo, @"わ行",
+     nil];
+     */
     
-
 }
-
-- (void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-    [self.tableView reloadData];
-}
-
 
 - (void)didReceiveMemoryWarning
 {
@@ -179,15 +186,16 @@ NSArray *sectionList;
  */
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
+    
     return [sectionList objectAtIndex:section];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     // Return the number of rows in the section.
-//    return [mTexts count];
+    //    return [mTexts count];
     NSString *sectionName = [sectionList objectAtIndex:section];
-
+    
     return [[dataSource objectForKey:sectionName] count];
 }
 
@@ -202,17 +210,17 @@ NSArray *sectionList;
     }
     
     /*
-    // 行(intexPath.row)ごとにtextLabelとdetailTextLabelに表示したいデータを代入
-    Text *text = [mTexts objectAtIndex:indexPath.row];
-    cell.textLabel.text = text.word;
-//    cell.detailTextLabel.text = text.text;
-    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-    */
+     // 行(intexPath.row)ごとにtextLabelとdetailTextLabelに表示したいデータを代入
+     Text *text = [mTexts objectAtIndex:indexPath.row];
+     cell.textLabel.text = text.word;
+     //    cell.detailTextLabel.text = text.text;
+     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+     */
     
     
     // セクション名を取得する
     NSString *sectionName = [sectionList objectAtIndex:indexPath.section];
-
+    
     // セクション名をキーにしてそのセクションの項目をすべて取得
     NSArray *items = [dataSource objectForKey:sectionName];
     
@@ -220,7 +228,7 @@ NSArray *sectionList;
     Text *text = [items objectAtIndex:indexPath.row];
     cell.textLabel.text = text.word;
     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-
+    
     
     return cell;
 }
@@ -245,17 +253,17 @@ NSArray *sectionList;
 }
 
 /*
-//ヘッダーにつける文字列を指定する。ここでは配列を作ってその文字列を表示させている。
--(NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
-{
-    return sectionList[section];
-}
-
+ //ヘッダーにつける文字列を指定する。ここでは配列を作ってその文字列を表示させている。
+ -(NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
+ {
+ return sectionList[section];
+ }
+ */
 //TableViewのインデックスリストに表示させたい文字列を設定する。
 - (NSArray *)sectionIndexTitlesForTableView:(UITableView *)tableView
 {
     return sectionList;
 }
-*/
+
 
 @end
