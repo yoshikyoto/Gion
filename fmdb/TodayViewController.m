@@ -132,7 +132,7 @@
     [question_button setTitleColor:buttonTextColor forState:UIControlStateNormal];
     [question_button setTitle:@" テストを受ける 〉" forState:UIControlStateNormal];
     [question_button addTarget:self action:@selector(viewQuestion:)forControlEvents:UIControlEventTouchUpInside];
-    question_button.font = [UIFont boldSystemFontOfSize:20];
+    question_button.titleLabel.font = [UIFont boldSystemFontOfSize:20];
     [[self view] addSubview:question_button];
     position_y += 50;
     

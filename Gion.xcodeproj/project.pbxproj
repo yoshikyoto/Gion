@@ -22,6 +22,7 @@
 		923931AC18385F76001211F3 /* spotlight_mashino@1136.png in Resources */ = {isa = PBXBuildFile; fileRef = 923931AA18385F76001211F3 /* spotlight_mashino@1136.png */; };
 		923931AE183872F7001211F3 /* right.png in Resources */ = {isa = PBXBuildFile; fileRef = 923931AD183872F7001211F3 /* right.png */; };
 		923931B0183872FB001211F3 /* wrong.png in Resources */ = {isa = PBXBuildFile; fileRef = 923931AF183872FB001211F3 /* wrong.png */; };
+		9247896D183B927800D85E45 /* text.db in Resources */ = {isa = PBXBuildFile; fileRef = 9247896C183B927800D85E45 /* text.db */; };
 		929B1155182A334D003514BD /* icon@120x120.png in Resources */ = {isa = PBXBuildFile; fileRef = 929B1154182A334D003514BD /* icon@120x120.png */; };
 		92F0F3B5183B639900977E16 /* shita.png in Resources */ = {isa = PBXBuildFile; fileRef = 92F0F3B2183B639900977E16 /* shita.png */; };
 		92F0F3B6183B639900977E16 /* migi.png in Resources */ = {isa = PBXBuildFile; fileRef = 92F0F3B3183B639900977E16 /* migi.png */; };
@@ -56,7 +57,6 @@
 		B7EE60E0180BA03C004C73A2 /* FMDatabasePool.m in Sources */ = {isa = PBXBuildFile; fileRef = B7EE60D9180BA03C004C73A2 /* FMDatabasePool.m */; };
 		B7EE60E1180BA03C004C73A2 /* FMDatabaseQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = B7EE60DB180BA03C004C73A2 /* FMDatabaseQueue.m */; };
 		B7EE60E2180BA03C004C73A2 /* FMResultSet.m in Sources */ = {isa = PBXBuildFile; fileRef = B7EE60DD180BA03C004C73A2 /* FMResultSet.m */; };
-		B7EE60E4180BA144004C73A2 /* text.db in Resources */ = {isa = PBXBuildFile; fileRef = B7EE60E3180BA144004C73A2 /* text.db */; };
 		B7EE60E7180BA242004C73A2 /* MasterTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B7EE60E6180BA242004C73A2 /* MasterTableViewController.m */; };
 		B7EE60EA180BA277004C73A2 /* Text.m in Sources */ = {isa = PBXBuildFile; fileRef = B7EE60E9180BA277004C73A2 /* Text.m */; };
 		B7EE60ED180BA7B9004C73A2 /* DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B7EE60EC180BA7B9004C73A2 /* DetailViewController.m */; };
@@ -97,6 +97,7 @@
 		923931AA18385F76001211F3 /* spotlight_mashino@1136.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "spotlight_mashino@1136.png"; sourceTree = "<group>"; };
 		923931AD183872F7001211F3 /* right.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = right.png; sourceTree = "<group>"; };
 		923931AF183872FB001211F3 /* wrong.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = wrong.png; sourceTree = "<group>"; };
+		9247896C183B927800D85E45 /* text.db */ = {isa = PBXFileReference; lastKnownFileType = file; path = text.db; sourceTree = "<group>"; };
 		929B1154182A334D003514BD /* icon@120x120.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon@120x120.png"; sourceTree = "<group>"; };
 		92F0F3B2183B639900977E16 /* shita.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = shita.png; sourceTree = "<group>"; };
 		92F0F3B3183B639900977E16 /* migi.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = migi.png; sourceTree = "<group>"; };
@@ -140,7 +141,6 @@
 		B7EE60DB180BA03C004C73A2 /* FMDatabaseQueue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMDatabaseQueue.m; sourceTree = "<group>"; };
 		B7EE60DC180BA03C004C73A2 /* FMResultSet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMResultSet.h; sourceTree = "<group>"; };
 		B7EE60DD180BA03C004C73A2 /* FMResultSet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMResultSet.m; sourceTree = "<group>"; };
-		B7EE60E3180BA144004C73A2 /* text.db */ = {isa = PBXFileReference; lastKnownFileType = file; path = text.db; sourceTree = "<group>"; };
 		B7EE60E5180BA242004C73A2 /* MasterTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MasterTableViewController.h; sourceTree = "<group>"; };
 		B7EE60E6180BA242004C73A2 /* MasterTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MasterTableViewController.m; sourceTree = "<group>"; };
 		B7EE60E8180BA277004C73A2 /* Text.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Text.h; sourceTree = "<group>"; };
@@ -227,7 +227,7 @@
 		B7EE609F180B9F95004C73A2 /* fmdb */ = {
 			isa = PBXGroup;
 			children = (
-				B7EE60E3180BA144004C73A2 /* text.db */,
+				9247896C183B927800D85E45 /* text.db */,
 				B7EE60A8180B9F95004C73A2 /* AppDelegate.h */,
 				B7EE60A9180B9F95004C73A2 /* AppDelegate.m */,
 				B7EE60AB180B9F95004C73A2 /* Main.storyboard */,
@@ -394,7 +394,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B7EE60E4180BA144004C73A2 /* text.db in Resources */,
 				92F0F3CC183B728900977E16 /* motto.png in Resources */,
 				92F0F3C3183B725700977E16 /* gyafun.png in Resources */,
 				92F0F3CE183B728900977E16 /* perfect.png in Resources */,
@@ -419,6 +418,7 @@
 				B7EE60AD180B9F95004C73A2 /* Main.storyboard in Resources */,
 				92F0F3C5183B725700977E16 /* sonochoshi.png in Resources */,
 				923931AB18385F76001211F3 /* spotlight_mashino@960.png in Resources */,
+				9247896D183B927800D85E45 /* text.db in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

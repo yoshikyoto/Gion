@@ -96,7 +96,6 @@ NSArray *sectionList;
         
         if([text.word hasPrefix:@"あ"] == YES || [text.word hasPrefix:@"い"] == YES || [text.word hasPrefix:@"う"] == YES || [text.word hasPrefix:@"え"] == YES || [text.word hasPrefix:@"お"] == YES ) {
             [aGyo addObject:text];
-            NSLog(@"A");
         } else if ([text.word hasPrefix:@"か"] == YES || [text.word hasPrefix:@"き"] == YES || [text.word hasPrefix:@"く"] == YES || [text.word hasPrefix:@"け"] == YES || [text.word hasPrefix:@"こ"] == YES || [text.word hasPrefix:@"が"] == YES || [text.word hasPrefix:@"ぎ"] == YES || [text.word hasPrefix:@"ぐ"] == YES || [text.word hasPrefix:@"げ"] == YES || [text.word hasPrefix:@"ご"] == YES ) {
             [kaGyo addObject:text];
         } else if ([text.word hasPrefix:@"さ"] == YES || [text.word hasPrefix:@"し"] == YES || [text.word hasPrefix:@"す"] == YES || [text.word hasPrefix:@"せ"] == YES || [text.word hasPrefix:@"そ"] == YES || [text.word hasPrefix:@"ざ"] == YES || [text.word hasPrefix:@"じ"] == YES || [text.word hasPrefix:@"ず"] == YES || [text.word hasPrefix:@"ぜ"] == YES || [text.word hasPrefix:@"ぞ"] == YES ) {

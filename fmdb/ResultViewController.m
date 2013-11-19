@@ -37,6 +37,10 @@
     self.navigationItem.title = @"結果";
     
     // 結果
+    UILabel *result_bg = [[UILabel alloc] initWithFrame:CGRectMake(0, 65, 320, 60)];
+    result_bg.backgroundColor = lightColor;
+    [[self view] addSubview:result_bg];
+    
     UILabel *result_label1 = [[UILabel alloc] initWithFrame:CGRectMake(40, 70, 80, 30)];
     result_label1.text = @"5問中";
     [[self view] addSubview:result_label1];
@@ -56,14 +60,18 @@
     
     // 結果詳細（間違えた問題とか）
     ResultDetailView *detail_view = [[ResultDetailView alloc] initWithQNC:qnc];
-    detail_view.frame = CGRectMake(0, 100, 320, 320);
+    //    tango_view.frame = CGRectMake(0, 60, 320, screenHeight - 80);
+    detail_view.frame = CGRectMake(0, 125, 320, screenHeight - 80);
     // detail_view.backgroundColor = [UIColor colorWithRed:0.9 green:0.9 blue:0.9 alpha:1.0];
     [[self view] addSubview:detail_view];
     
     // 閉じるボタン
     UIButton *close_button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    [close_button setTitle:@"とじる" forState:UIControlStateNormal];
-    close_button.frame = CGRectMake(60, 420, 200, 30);
+    [close_button setTitle:@"× 結果画面をとじる　" forState:UIControlStateNormal];
+    close_button.titleLabel.font = [UIFont boldSystemFontOfSize:20];
+    close_button.frame = CGRectMake(0, screenHeight - 40, 320, 40);
+    close_button.backgroundColor = buttonColor;
+    [close_button setTitleColor:buttonTextColor forState:UIControlStateNormal];
     [close_button addTarget:self action:@selector(close:)forControlEvents:UIControlEventTouchUpInside];
     [[self view] addSubview:close_button];
     

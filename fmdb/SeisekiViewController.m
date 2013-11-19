@@ -143,8 +143,8 @@
     }
 
     // 背景色
-    _todayView.backgroundColor = [UIColor yellowColor];
-    _totalView.backgroundColor = [UIColor redColor];
+    _todayView.backgroundColor = lightColor;
+    _totalView.backgroundColor = lightColor;
     
     // 画像（とりあえず）
     [_imageTotal setImage:[UIImage imageNamed:@"wrong.png"]];

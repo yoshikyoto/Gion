@@ -43,10 +43,15 @@
     [all_texts removeObject:_text];
     NSMutableArray *answer_detail_array = [[NSMutableArray alloc] init];
     
+    UILabel *question_background = [[UILabel alloc] initWithFrame:CGRectMake(0, 60, 320, 200)];
+    question_background.backgroundColor = lightColor;
+    [[self view] addSubview:question_background];
+    
     UILabel *questionLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 60, 300, 200)];
     questionLabel.numberOfLines = 3;
     questionLabel.text = qsentence;
-    questionLabel.backgroundColor = [UIColor lightGrayColor];
+    //questionLabel.backgroundColor = ;
+    questionLabel.font = [UIFont systemFontOfSize:24];
     [[self view] addSubview:questionLabel];
     
     // タイトル設定
@@ -66,7 +71,9 @@
     for(int i = 0; i < 4; i++){
         // ボタン初期化
         UIButton *button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-        button.backgroundColor = [UIColor redColor];
+        button.backgroundColor = lightColor;
+        [button setTitleColor:darkColor forState:UIControlStateNormal];
+        button.titleLabel.font = [UIFont systemFontOfSize:20];
         if(i%2 == 0) {                     // 左上と左下
             button.frame = CGRectMake(15, 280+50*i, 140, 90);
         } else {                            // 右上と右下
@@ -122,8 +129,6 @@
     result_text_label.font = [UIFont boldSystemFontOfSize:40];
      */
     UIImageView *result_image = [[UIImageView alloc] initWithFrame:CGRectMake(60, 200, 200, 240)];
-    
-    GionDatabaseManager *GDBM = [[GionDatabaseManager alloc] init];
     
     if(sender.tag == _correctAnswerInt){
         // 正解した場合
