@@ -46,7 +46,9 @@
     UILabel *result_label2 = [[UILabel alloc] initWithFrame:CGRectMake(120, 70, 80, 30)];
     result_label2.text = [NSString stringWithFormat:@"%d", qnc.correctCount];
     [[self view] addSubview:result_label2];
-    
+    NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
+    [defaults setInteger:qnc.correctCount forKey:@"TODAYSRESULT"];
+
 
     UILabel *result_label3 = [[UILabel alloc] initWithFrame:CGRectMake(200, 70, 80, 30)];
     result_label3.text = @"問正解";

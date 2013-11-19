@@ -31,6 +31,10 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
     self.navigationItem.title = @"成績";
+    //[self updateLabel];
+}
+
+-(void)viewWillAppear:(BOOL)animated {
     [self updateLabel];
 }
 
@@ -58,11 +62,26 @@
 
     
     // 今日の成績：正解数を取得
-    if([ud objectForKey:@"TODAYSRESULT"] != NULL) {
+    if([ud objectForKey:@"TODAYSRESULT"] != NULL) { // 今日既にテストを受けてある
         int todaysresult = [ud integerForKey:@"TODAYSRESULT"];
-        _rightAllTodayLabel.text =[NSString stringWithFormat:@"(正解数 %d問 / 全 %d問)", todaysresult, 5];
-    } else {
-        NSLog(@"nullでした");
+        int achToday = (double)todaysresult / 5 * 100;
+        NSLog(@"achToday%d ％", achToday);
+        _achievementTodayLabel.text = [NSString stringWithFormat:@"%d ％", achToday];
+        _rightAllTodayLabel.text = [NSString stringWithFormat:@"(正解数 %d問 / 全 %d問)", todaysresult, 5];
+        if(achToday ==100) {
+            _commentTodayLabel.text = @"よくできた！！";
+        } else if(achToday >= 60) {
+            _commentTodayLabel.text = @"もうちょっと！！";
+        } else if(achToday >= 0) {
+            _commentTodayLabel.text = @"まだまだ！！";
+        } else {
+            _commentTodayLabel.text = @"？？？";
+        }
+    } else {                                        // 今日まだテストを受けてない
+        _commentTodayLabel.numberOfLines =3;
+        _commentTodayLabel.text = @"今日の単語を覚えてテストを受けよう！";
+        _achievementTodayLabel.text = [NSString stringWithFormat:@"%s ％", "--"];
+        _rightAllTodayLabel.text =[NSString stringWithFormat:@"(正解数 %s問 / 全 %d問)", "--", 5];
     }
     
     // 総合成績：問題数，正解数を取得
@@ -83,7 +102,7 @@
 
     
     // 総合成績：達成度の計算と達成度コメントの設定
-    double ach = right_texts_count / all_texts_count;
+    double ach = (double)right_texts_count / (double)all_texts_count * 100;
     _achivementLabel.text =[NSString stringWithFormat:@"%.2f ％", ach];
     if(ach ==100) {
         _commentTotalLabel.text = @"よくできた！！";
