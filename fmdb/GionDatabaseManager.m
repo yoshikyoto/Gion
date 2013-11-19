@@ -7,6 +7,7 @@
 //
 
 #import "GionDatabaseManager.h"
+#import "Text.h"
 
 @implementation GionDatabaseManager
 
@@ -49,6 +50,35 @@
         db = [FMDatabase databaseWithPath:database_path];
     }
     return self;
+}
+
+- (NSMutableArray *)executeSQL:(NSString *)sql{
+    NSLog(@"%s", __func__);
+    NSMutableArray *result_array = [[NSMutableArray alloc] init];
+    
+    [db open];
+    // クエリを実行
+    FMResultSet *rs = [db executeQuery:sql];
+    
+    // FMResultSet を NSMutableArray に変換
+    while( [rs next] )
+    {
+        Text *text = [[Text alloc] init];
+        
+        text.textid = [rs intForColumn:@"textid"];
+        text.text = [rs stringForColumn:@"text"];
+        text.word = [rs stringForColumn:@"word"];
+        text.meaning = [rs stringForColumn:@"meaning"];
+        text.right = [rs intForColumn:@"right"];
+        text.wrong = [rs intForColumn:@"wrong"];
+        
+        [result_array addObject:text];
+    }
+    
+    [rs close];
+    [db close];
+    
+    return result_array;
 }
 
 @end

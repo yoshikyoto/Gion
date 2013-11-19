@@ -57,6 +57,7 @@
     
     [_db setShouldCacheStatements:YES];
     
+    /*
     // SQL文を生成．ここではすべてをid順に持ってくるという文
     NSString* sql = @"SELECT * FROM text ORDER BY textid DESC;";
     FMResultSet* rs = [_db executeQuery:sql];
@@ -81,8 +82,13 @@
     
     [rs close];
     [_db close];
+     */
     
-    NSLog(@"%s end", __func__);
+    // 新しいクラスを作成しました。
+    GionDatabaseManager *GDBM = [[GionDatabaseManager alloc] init];
+    _texts = [GDBM executeSQL:@"SELECT * FROM text ORDER BY textid DESC"];
+    
+    NSLog(@"%s end %d", __func__, [_texts count]);
 }
 
 - (void)didReceiveMemoryWarning

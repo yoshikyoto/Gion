@@ -9,11 +9,13 @@
 #import <UIKit/UIKit.h>
 #import "Text.h"
 #import "FMDatabase.h"
+#import "GionDatabaseManager.h"
 
 @interface GionTabBarController : UITabBarController{
 }
 
 @property NSMutableArray *texts;
 @property FMDatabase *db;
+@property GionDatabaseManager *GDBM;
 
 @end
