@@ -65,14 +65,14 @@
     [close_button addTarget:self action:@selector(close:)forControlEvents:UIControlEventTouchUpInside];
     [[self view] addSubview:close_button];
     
-    [self updateRunningDate];
+    [self updateRunningDate:qnc.correctCount];
     
     // テストが終了したことを通知出す（きっと役に立つ）
     NSNotification *n = [NSNotification notificationWithName:@"TestFinished" object:self];
     [[NSNotificationCenter defaultCenter] postNotification:n];
 }
 
-- (void)updateRunningDate{
+- (void)updateRunningDate: (NSInteger) correctCount{
     NSLog(@"%s", __func__);
     // NSUserDefaultsを使って継続日数を管理する
     NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
@@ -85,6 +85,7 @@
     [md setObject:date forKey:@"LASTDATE"]; // LASTDATEは前回の起動日時を記録．ただし今日2回目以降の起動であれば更新されない．
     [md setObject:@"1" forKey:@"RUNNING"]; // RUNNINGは今の連続起動日数
     [md setObject:@"1" forKey:@"RUNNINGMAX"]; // RUNNINGMAXは過去で一番長い連続起動日数
+    [md setObject:@"-1" forKey:@"TODAYSRESULT"]; // TODAYSRESULTは今日のテストの正解数(0≦TODAYSRESULT≦5)
     [defaults registerDefaults:md];
     
     
@@ -128,6 +129,9 @@
             [defaults setInteger:1 forKey:@"RUNNING"];
         }
         NSLog( @"最高継続%d日",[defaults integerForKey:@"RUNNINGMAX"]);
+        
+        // 今日の正解数
+        [defaults setInteger:correctCount forKey:@"TODAYSRESULT"];
     }
     //NSLog( [lastDate description] );
 }

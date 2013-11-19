@@ -67,7 +67,7 @@
         UIButton *button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
         if(i%2 == 0) {                     // 左上と左下
             button.frame = CGRectMake(15, 280+50*i, 140, 90);
-        } else {                            //右上と右下
+        } else {                            // 右上と右下
             button.frame = CGRectMake(165, 280+50*(i-1), 140, 90);
         }
         [[button layer] setBorderWidth:1.0f]; // ボタンの境界線
