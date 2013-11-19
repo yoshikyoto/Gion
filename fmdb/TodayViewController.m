@@ -55,6 +55,17 @@
     [self initTodaysTexts];
     //_todaysTexts = [self randomQuestion:5 :_todaysTexts];
     
+    /* 枠付きボタンサンプル
+     UIButton *dungeon_button = [UIButton buttonWithType:UIButtonTypeCustom];
+     dungeon_button.frame = CGRectMake(10, 5 + 58*i, 300, 50);
+     dungeon_button.tag = i;
+     [dungeon_button addTarget:self action:@selector(dungeonTouched:)forControlEvents:UIControlEventTouchUpInside];
+     dungeon_button.backgroundColor = [UIColor colorWithRed:1.0 green:0.95 blue:0.8 alpha:0.9];
+     [[dungeon_button layer] setBorderWidth:2.0];
+     [[dungeon_button layer] setCornerRadius:6.0];
+     [[dungeon_button layer] setBorderColor:[[UIColor colorWithRed:0.6 green:0.3 blue:0.05 alpha:0.8] CGColor]];
+     [dungeonView.dungeonListView addSubview:dungeon_button];
+     */
     
     // 単語5つ
     int position_y = 10;
@@ -62,14 +73,17 @@
         Text *text = [_todaysTexts objectAtIndex:i];
         // ボタン。実際にはタップして移動するようにする
         UIButton *tango_button = [UIButton buttonWithType:UIButtonTypeCustom];
-        tango_button.frame = CGRectMake(0, position_y, 320, 100);
-        tango_button.backgroundColor = [UIColor colorWithRed:0.9 green:0.9 blue:0.9 alpha:1.0]; // 分かりやすいように色つける
+        tango_button.frame = CGRectMake(5, position_y, 310, 100);
+        tango_button.backgroundColor = lightColor; // lightColor は GionViewController で指定
+        [[tango_button layer] setCornerRadius:10.0]; // 角をまるく
+        [[tango_button layer] setBorderWidth:2.0]; // 境界の太さ
+        [[tango_button layer] setBorderColor:[darkColor CGColor]];
         tango_button.tag = i;
-        [tango_button addTarget:self action:@selector(tangoTapped:)forControlEvents:UIControlEventTouchUpInside];
+        [tango_button addTarget:self action:@selector(tangoTapped:)forControlEvents:UIControlEventTouchUpInside]; // タップしたときの
         [tango_view addSubview:tango_button];
         
         // 単語表示用 UILabel
-        UILabel *tango_label = [[UILabel alloc] initWithFrame:CGRectMake(10, position_y, 300, 20)];
+        UILabel *tango_label = [[UILabel alloc] initWithFrame:CGRectMake(15, position_y, 280, 20)];
         tango_label.text = text.word; //[NSString stringWithFormat:@"単語%d", i];
         tango_label.textColor = [UIColor darkGrayColor];
         tango_label.font = [UIFont systemFontOfSize:14];
@@ -77,15 +91,15 @@
         position_y += 20;
         
         // 単語の意味表示
-        UILabel *meaning_label = [[UILabel alloc] initWithFrame:CGRectMake(10, position_y, 300, 15)];
-        meaning_label.text = text.meaning; //@"意味";
+        UILabel *meaning_label = [[UILabel alloc] initWithFrame:CGRectMake(15, position_y, 280, 15)];
+        meaning_label.text = [NSString stringWithFormat:@"●%@",text.meaning]; //@"意味";
         meaning_label.textColor = [UIColor grayColor];
         meaning_label.font = [UIFont systemFontOfSize:12];
         [tango_view addSubview:meaning_label]; // ScrollView に addSubview
         position_y += 15;
         
         // 例文
-        UILabel *reibun_rabel = [[UILabel alloc] initWithFrame:CGRectMake(10, position_y, 300, 65)];
+        UILabel *reibun_rabel = [[UILabel alloc] initWithFrame:CGRectMake(15, position_y, 280, 65)];
         reibun_rabel.numberOfLines = 3; // 行数
         reibun_rabel.text = text.text; //[NSString stringWithFormat:@"”%@”", @"例文テキストーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー"];
         [tango_view addSubview:reibun_rabel];

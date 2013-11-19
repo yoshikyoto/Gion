@@ -14,6 +14,7 @@
 		9207E2EF1819AF3A00BA173D /* TodayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9207E2EA1819AF3A00BA173D /* TodayViewController.m */; };
 		9207E2F21819B39C00BA173D /* GionTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9207E2F11819B39C00BA173D /* GionTabBarController.m */; };
 		921591BF1819FD6D00777FC6 /* SeisekiViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 921591BE1819FD6D00777FC6 /* SeisekiViewController.m */; };
+		922E1169183B217800504BAC /* GionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 922E1168183B217800504BAC /* GionViewController.m */; };
 		923931A41838592B001211F3 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 923931A31838592B001211F3 /* Images.xcassets */; };
 		923931AB18385F76001211F3 /* spotlight_mashino@960.png in Resources */ = {isa = PBXBuildFile; fileRef = 923931A918385F76001211F3 /* spotlight_mashino@960.png */; };
 		923931AC18385F76001211F3 /* spotlight_mashino@1136.png in Resources */ = {isa = PBXBuildFile; fileRef = 923931AA18385F76001211F3 /* spotlight_mashino@1136.png */; };
@@ -70,6 +71,8 @@
 		9207E2F11819B39C00BA173D /* GionTabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GionTabBarController.m; sourceTree = "<group>"; };
 		921591BD1819FD6D00777FC6 /* SeisekiViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SeisekiViewController.h; sourceTree = "<group>"; };
 		921591BE1819FD6D00777FC6 /* SeisekiViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SeisekiViewController.m; sourceTree = "<group>"; };
+		922E1167183B217800504BAC /* GionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GionViewController.h; sourceTree = "<group>"; };
+		922E1168183B217800504BAC /* GionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GionViewController.m; sourceTree = "<group>"; };
 		923931A31838592B001211F3 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = Gion/Images.xcassets; sourceTree = "<group>"; };
 		923931A918385F76001211F3 /* spotlight_mashino@960.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "spotlight_mashino@960.png"; sourceTree = "<group>"; };
 		923931AA18385F76001211F3 /* spotlight_mashino@1136.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "spotlight_mashino@1136.png"; sourceTree = "<group>"; };
@@ -181,6 +184,8 @@
 				B7EE60B4180B9F95004C73A2 /* Images.xcassets */,
 				9207E2F01819B39C00BA173D /* GionTabBarController.h */,
 				9207E2F11819B39C00BA173D /* GionTabBarController.m */,
+				922E1167183B217800504BAC /* GionViewController.h */,
+				922E1168183B217800504BAC /* GionViewController.m */,
 				9207E2E91819AF3A00BA173D /* TodayViewController.h */,
 				9207E2EA1819AF3A00BA173D /* TodayViewController.m */,
 				9207E2E11819AF3A00BA173D /* QuestionNavigationController.h */,
@@ -362,6 +367,7 @@
 				B7EE60AA180B9F95004C73A2 /* AppDelegate.m in Sources */,
 				9207E2EE1819AF3A00BA173D /* ResultViewController.m in Sources */,
 				9207E2EB1819AF3A00BA173D /* QuestionNavigationController.m in Sources */,
+				922E1169183B217800504BAC /* GionViewController.m in Sources */,
 				9207E2EC1819AF3A00BA173D /* QuestionViewController.m in Sources */,
 				B7EE60E7180BA242004C73A2 /* MasterTableViewController.m in Sources */,
 				B7EE60EA180BA277004C73A2 /* Text.m in Sources */,

@@ -8,9 +8,10 @@
 
 #import <UIKit/UIKit.h>
 #import "GionTabBarController.h"
+#import "GionViewController.h"
 
 @class QuestionViewController;
-@interface TodayViewController : UIViewController
+@interface TodayViewController : GionViewController
 
 @property NSMutableArray *allTexts;
 @property NSMutableArray *todaysTexts;

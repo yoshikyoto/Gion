@@ -8,8 +8,9 @@
 
 #import <UIKit/UIKit.h>
 #import "Text.h"
+#import "GionViewController.h"
 
-@interface DetailViewController : UIViewController
+@interface DetailViewController : GionViewController
 {
     Text *text;
     UILabel *_text;
