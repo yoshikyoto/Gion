@@ -15,6 +15,8 @@
 		9207E2F21819B39C00BA173D /* GionTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9207E2F11819B39C00BA173D /* GionTabBarController.m */; };
 		921591BF1819FD6D00777FC6 /* SeisekiViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 921591BE1819FD6D00777FC6 /* SeisekiViewController.m */; };
 		922E1169183B217800504BAC /* GionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 922E1168183B217800504BAC /* GionViewController.m */; };
+		922E116E183B2CBF00504BAC /* pentagon.png in Resources */ = {isa = PBXBuildFile; fileRef = 922E116D183B2CBF00504BAC /* pentagon.png */; };
+		922E1171183B30F400504BAC /* GionDatabaseManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 922E1170183B30F400504BAC /* GionDatabaseManager.m */; };
 		923931A41838592B001211F3 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 923931A31838592B001211F3 /* Images.xcassets */; };
 		923931AB18385F76001211F3 /* spotlight_mashino@960.png in Resources */ = {isa = PBXBuildFile; fileRef = 923931A918385F76001211F3 /* spotlight_mashino@960.png */; };
 		923931AC18385F76001211F3 /* spotlight_mashino@1136.png in Resources */ = {isa = PBXBuildFile; fileRef = 923931AA18385F76001211F3 /* spotlight_mashino@1136.png */; };
@@ -73,6 +75,9 @@
 		921591BE1819FD6D00777FC6 /* SeisekiViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SeisekiViewController.m; sourceTree = "<group>"; };
 		922E1167183B217800504BAC /* GionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GionViewController.h; sourceTree = "<group>"; };
 		922E1168183B217800504BAC /* GionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GionViewController.m; sourceTree = "<group>"; };
+		922E116D183B2CBF00504BAC /* pentagon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pentagon.png; sourceTree = "<group>"; };
+		922E116F183B30F400504BAC /* GionDatabaseManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GionDatabaseManager.h; sourceTree = "<group>"; };
+		922E1170183B30F400504BAC /* GionDatabaseManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GionDatabaseManager.m; sourceTree = "<group>"; };
 		923931A31838592B001211F3 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = Gion/Images.xcassets; sourceTree = "<group>"; };
 		923931A918385F76001211F3 /* spotlight_mashino@960.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "spotlight_mashino@960.png"; sourceTree = "<group>"; };
 		923931AA18385F76001211F3 /* spotlight_mashino@1136.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "spotlight_mashino@1136.png"; sourceTree = "<group>"; };
@@ -204,6 +209,8 @@
 				B7EE60E9180BA277004C73A2 /* Text.m */,
 				B7EE60EB180BA7B9004C73A2 /* DetailViewController.h */,
 				B7EE60EC180BA7B9004C73A2 /* DetailViewController.m */,
+				922E116F183B30F400504BAC /* GionDatabaseManager.h */,
+				922E1170183B30F400504BAC /* GionDatabaseManager.m */,
 				B7EE60A0180B9F95004C73A2 /* Supporting Files */,
 			);
 			path = fmdb;
@@ -212,6 +219,7 @@
 		B7EE60A0180B9F95004C73A2 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				922E116D183B2CBF00504BAC /* pentagon.png */,
 				923931A918385F76001211F3 /* spotlight_mashino@960.png */,
 				923931AA18385F76001211F3 /* spotlight_mashino@1136.png */,
 				923931AD183872F7001211F3 /* right.png */,
@@ -344,6 +352,7 @@
 				923931B0183872FB001211F3 /* wrong.png in Resources */,
 				923931AC18385F76001211F3 /* spotlight_mashino@1136.png in Resources */,
 				B7EE60A4180B9F95004C73A2 /* InfoPlist.strings in Resources */,
+				922E116E183B2CBF00504BAC /* pentagon.png in Resources */,
 				B7EE60AD180B9F95004C73A2 /* Main.storyboard in Resources */,
 				923931AB18385F76001211F3 /* spotlight_mashino@960.png in Resources */,
 			);
@@ -365,6 +374,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B7EE60AA180B9F95004C73A2 /* AppDelegate.m in Sources */,
+				922E1171183B30F400504BAC /* GionDatabaseManager.m in Sources */,
 				9207E2EE1819AF3A00BA173D /* ResultViewController.m in Sources */,
 				9207E2EB1819AF3A00BA173D /* QuestionNavigationController.m in Sources */,
 				922E1169183B217800504BAC /* GionViewController.m in Sources */,
