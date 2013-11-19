@@ -42,15 +42,22 @@
     [all_texts removeObject:_text];
     NSMutableArray *answer_detail_array = [[NSMutableArray alloc] init];
     
-    UILabel *questionLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 60, 300, 60)];
+    UILabel *questionLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 60, 300, 200)];
     questionLabel.numberOfLines = 3;
     questionLabel.text = qsentence;
+    questionLabel.backgroundColor = [UIColor lightGrayColor];
     [[self view] addSubview:questionLabel];
     
     // タイトル設定
     self.navigationItem.title = [NSString stringWithFormat:@"%d問目", [[self.navigationController viewControllers] count]];
     
     // 選択肢
+    /*************************************
+     縦に4つ並んでいた選択肢を2*2の配置に変更
+     とりあえず高さは4inch用にしてる
+     2013.11.17 by horita
+     *************************************/
+    
     // 正解の位置をランダムで決定
     _correctAnswerInt = arc4random()%4;
     // 選択肢記憶用の配列の初期化
@@ -58,9 +65,14 @@
     for(int i = 0; i < 4; i++){
         // ボタン初期化
         UIButton *button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-        button.frame = CGRectMake(20, 180+50*i, 280, 40);
-         [[button layer] setBorderWidth:1.0f]; // ボタンの境界線
+        if(i%2 == 0) {                     // 左上と左下
+            button.frame = CGRectMake(15, 280+50*i, 140, 90);
+        } else {                            //右上と右下
+            button.frame = CGRectMake(165, 280+50*(i-1), 140, 90);
+        }
+        [[button layer] setBorderWidth:1.0f]; // ボタンの境界線
         button.tag = i; // 何番目の選択肢か
+
         // タップされた時の処理
         [button addTarget:self action:@selector(answerQuestion:)forControlEvents:UIControlEventTouchUpInside];
         [[self view] addSubview:button];
