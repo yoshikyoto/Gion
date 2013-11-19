@@ -29,8 +29,10 @@
 {
     NSLog(@"%s", __func__);
     // 色
-    [UINavigationBar appearance].barTintColor = [UIColor yellowColor];
-    [UITabBar appearance].barTintColor = [UIColor whiteColor];
+    [UINavigationBar appearance].barTintColor = [UIColor colorWithRed:119/255.0 green:147/255.0 blue:60/255.0 alpha:1.0];
+    [UINavigationBar appearance].titleTextAttributes = @{NSForegroundColorAttributeName: [UIColor whiteColor]};
+    [UINavigationBar appearance].tintColor = [UIColor whiteColor];
+    [UITabBar appearance].barTintColor = [UIColor colorWithRed:235/255.0 green:241/255.0 blue:222/255.0 alpha:1.0];
     
     [super viewDidLoad];
 	// Do any additional setup after loading the view.

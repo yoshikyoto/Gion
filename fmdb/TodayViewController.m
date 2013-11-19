@@ -43,7 +43,7 @@
     // 単語を表示するためのビュー (デバッグ用に色をつけてます)
     UIScrollView *tango_view = [[UIScrollView alloc] init];
     //tango_view.backgroundColor = [UIColor colorWithRed:0.9 green:0.9 blue:0.9 alpha:1.0];
-    tango_view.frame = CGRectMake(0, 60, 320, screenHeight - 130);
+    tango_view.frame = CGRectMake(0, 60, 320, screenHeight - 80);
     [[self view] addSubview:tango_view];
     
     // ここで単語
@@ -129,10 +129,12 @@
     UIButton *question_button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
     question_button.frame = CGRectMake(0, screenHeight - 70, 320, 40);
     question_button.backgroundColor = buttonColor;
-    [question_button setTitle:@"テストを受ける" forState:UIControlStateNormal];
+    [question_button setTitleColor:buttonTextColor forState:UIControlStateNormal];
+    [question_button setTitle:@" テストを受ける 〉" forState:UIControlStateNormal];
     [question_button addTarget:self action:@selector(viewQuestion:)forControlEvents:UIControlEventTouchUpInside];
+    question_button.font = [UIFont boldSystemFontOfSize:20];
     [[self view] addSubview:question_button];
-    //position_y += 30;
+    position_y += 50;
     
     //position_y += 10;
     // スクロールビューの内部のサイズを決める
