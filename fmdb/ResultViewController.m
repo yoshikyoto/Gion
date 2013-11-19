@@ -46,7 +46,9 @@
     UILabel *result_label2 = [[UILabel alloc] initWithFrame:CGRectMake(120, 70, 80, 30)];
     result_label2.text = [NSString stringWithFormat:@"%d", qnc.correctCount];
     [[self view] addSubview:result_label2];
-    
+    NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
+    [defaults setInteger:qnc.correctCount forKey:@"TODAYSRESULT"];
+
 
     UILabel *result_label3 = [[UILabel alloc] initWithFrame:CGRectMake(200, 70, 80, 30)];
     result_label3.text = @"問正解";
@@ -73,7 +75,7 @@
 }
 
 - (void)updateRunningDate{
-    NSLog(@"%s", __func__);
+    //NSLog(@"%s", __func__);
     // NSUserDefaultsを使って継続日数を管理する
     NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
     NSMutableDictionary *md = [NSMutableDictionary dictionary];
@@ -120,14 +122,15 @@
             if(runningmax<running) {
                 [defaults setInteger:running forKey:@"RUNNINGMAX"];
             }
-        } else if(since/(24*60*60) > 1){ // 昨日は起動していなかったら連続日数を0にする
+        } else if(since/(24*60*60) > 1){ // 昨日は起動していなかったら連続日数を1にする
             NSInteger runningmax = [defaults integerForKey:@"RUNNINGMAX"];
             if(runningmax<running) {
                 [defaults setInteger:running forKey:@"RUNNINGMAX"];
             }
             [defaults setInteger:1 forKey:@"RUNNING"];
         }
-        NSLog( @"最高継続%d日",[defaults integerForKey:@"RUNNINGMAX"]);
+        //NSLog( @"最高継続%d日",[defaults integerForKey:@"RUNNINGMAX"]);
+        
     }
     //NSLog( [lastDate description] );
 }
