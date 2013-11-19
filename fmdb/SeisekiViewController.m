@@ -54,6 +54,20 @@
     }
     _runningLabel.text = [NSString stringWithFormat:@"%d日連続継続中！", running];
     _runningMaxLabel.text = [NSString stringWithFormat:@"(最高記録 %d日)", running_max];
+    [_imageComment setImage:[UIImage imageNamed:@"botsu.png"]];
+    if(running >=7) {
+        [_imageComment setImage:[UIImage imageNamed:@"sonochoshi.png"]];
+    }
+    if(running >= 30) {
+        [_imageComment setImage:[UIImage imageNamed:@"gyafun.png"]];
+    }
+    if(running<2 && running_max<=3 && running_max>1) {
+        [_imageComment setImage:[UIImage imageNamed:@"mikka.png"]];
+    }
+    if(running<2 && running_max<=7 && running_max>=4) {
+        [_imageComment setImage:[UIImage imageNamed:@"ashitakara.png"]];
+    }
+    
     
     // NSUserDefaultから今日の日付を取得
     NSDate* date = [ud objectForKey:@"DATE"];
@@ -74,12 +88,19 @@
         _rightAllTodayLabel.text = [NSString stringWithFormat:@"(正解数 %d問 / 全 %d問)", todaysresult, 5];
         if(achToday ==100) {
             _commentTodayLabel.text = @"よくできた！！";
+            [_imageToday setImage:[UIImage imageNamed:@"perfect.png"]];
         } else if(achToday >= 60) {
             _commentTodayLabel.text = @"もうちょっと！！";
-        } else if(achToday >= 0) {
+            [_imageToday setImage:[UIImage imageNamed:@"iikanji.png"]];
+        } else if(achToday >= 20) {
             _commentTodayLabel.text = @"まだまだ！！";
+            [_imageToday setImage:[UIImage imageNamed:@"mottoganbareru.png"]];
+        } else if(achToday >= 0){
+            _commentTodayLabel.text = @"うーん…";
+            [_imageToday setImage:[UIImage imageNamed:@"motto.png"]];
         } else {
             _commentTodayLabel.text = @"？？？";
+            [_imageToday setImage:[UIImage imageNamed:@"right.png"]];
         }
     } else {                                        // 今日まだテストを受けてない
         _commentTodayLabel.numberOfLines =3;
@@ -117,15 +138,16 @@
     } else {
         _commentTotalLabel.text = @"？？？";
     }
+    if(ach>=90) {
+        [_imageComment setImage:[UIImage imageNamed:@"sugoi.png"]];
+    }
 
     // 背景色
     _todayView.backgroundColor = [UIColor yellowColor];
     _totalView.backgroundColor = [UIColor redColor];
     
     // 画像（とりあえず）
-    [_imageToday setImage:[UIImage imageNamed:@"right.png"]];
     [_imageTotal setImage:[UIImage imageNamed:@"wrong.png"]];
-    [_imageComment setImage:[UIImage imageNamed:@"icon@120x120.png"]];
 
 
 

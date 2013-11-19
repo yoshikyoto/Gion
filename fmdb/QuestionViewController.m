@@ -31,7 +31,7 @@
     //NSLog(@"%s", __func__);
 	// Do any additional setup after loading the view.
     // 背景
-    [self view].backgroundColor = [UIColor whiteColor];
+//    [self view].backgroundColor = [UIColor whiteColor];
     [self.navigationItem setHidesBackButton:YES];
     
     // 問題

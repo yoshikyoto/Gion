@@ -9,8 +9,9 @@
 #import <UIKit/UIKit.h>
 #import "TodayViewController.h"
 #import "Text.h"
+#import "GionViewController.h"
 
-@interface QuestionViewController : UIViewController{
+@interface QuestionViewController : GionViewController{
     BOOL is_button_tapped;
 }
 
