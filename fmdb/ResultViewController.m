@@ -67,15 +67,15 @@
     [close_button addTarget:self action:@selector(close:)forControlEvents:UIControlEventTouchUpInside];
     [[self view] addSubview:close_button];
     
-    [self updateRunningDate:qnc.correctCount];
+    [self updateRunningDate];
     
     // テストが終了したことを通知出す（きっと役に立つ）
     NSNotification *n = [NSNotification notificationWithName:@"TestFinished" object:self];
     [[NSNotificationCenter defaultCenter] postNotification:n];
 }
 
-- (void)updateRunningDate: (NSInteger) correctCount{
-    NSLog(@"%s", __func__);
+- (void)updateRunningDate{
+    //NSLog(@"%s", __func__);
     // NSUserDefaultsを使って継続日数を管理する
     NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
     NSMutableDictionary *md = [NSMutableDictionary dictionary];
@@ -87,7 +87,6 @@
     [md setObject:date forKey:@"LASTDATE"]; // LASTDATEは前回の起動日時を記録．ただし今日2回目以降の起動であれば更新されない．
     [md setObject:@"1" forKey:@"RUNNING"]; // RUNNINGは今の連続起動日数
     [md setObject:@"1" forKey:@"RUNNINGMAX"]; // RUNNINGMAXは過去で一番長い連続起動日数
-    [md setObject:@"-1" forKey:@"TODAYSRESULT"]; // TODAYSRESULTは今日のテストの正解数(0≦TODAYSRESULT≦5)
     [defaults registerDefaults:md];
     
     
@@ -123,17 +122,15 @@
             if(runningmax<running) {
                 [defaults setInteger:running forKey:@"RUNNINGMAX"];
             }
-        } else if(since/(24*60*60) > 1){ // 昨日は起動していなかったら連続日数を0にする
+        } else if(since/(24*60*60) > 1){ // 昨日は起動していなかったら連続日数を1にする
             NSInteger runningmax = [defaults integerForKey:@"RUNNINGMAX"];
             if(runningmax<running) {
                 [defaults setInteger:running forKey:@"RUNNINGMAX"];
             }
             [defaults setInteger:1 forKey:@"RUNNING"];
         }
-        NSLog( @"最高継続%d日",[defaults integerForKey:@"RUNNINGMAX"]);
+        //NSLog( @"最高継続%d日",[defaults integerForKey:@"RUNNINGMAX"]);
         
-        // 今日の正解数
-        [defaults setInteger:correctCount forKey:@"TODAYSRESULT"];
     }
     //NSLog( [lastDate description] );
 }

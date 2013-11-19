@@ -46,11 +46,15 @@
 
     // NSUserDefaultから継続日数と最高継続日数を取得
     NSUserDefaults* ud = [NSUserDefaults standardUserDefaults];
-    int running = [ud integerForKey:@"RUNNING"];
-    int running_max = [ud integerForKey:@"RUNNINGMAX"];
+    int running = 1;
+    int running_max = 1;
+    if([ud objectForKey:@"RUNNING"] != NULL) {
+        running = [ud integerForKey:@"RUNNING"];
+        running_max = [ud integerForKey:@"RUNNINGMAX"];
+    }
     _runningLabel.text = [NSString stringWithFormat:@"%d日連続継続中！", running];
     _runningMaxLabel.text = [NSString stringWithFormat:@"(最高記録 %d日)", running_max];
-
+    
     // NSUserDefaultから今日の日付を取得
     NSDate* date = [ud objectForKey:@"DATE"];
     if(date == NULL) date = [NSDate dateWithTimeIntervalSinceNow:[[NSTimeZone systemTimeZone] secondsFromGMT]]; // dateが空ならシステムから現在日時取得
@@ -65,7 +69,7 @@
     if([ud objectForKey:@"TODAYSRESULT"] != NULL) { // 今日既にテストを受けてある
         int todaysresult = [ud integerForKey:@"TODAYSRESULT"];
         int achToday = (double)todaysresult / 5 * 100;
-        NSLog(@"achToday%d ％", achToday);
+        //NSLog(@"achToday%d ％", achToday);
         _achievementTodayLabel.text = [NSString stringWithFormat:@"%d ％", achToday];
         _rightAllTodayLabel.text = [NSString stringWithFormat:@"(正解数 %d問 / 全 %d問)", todaysresult, 5];
         if(achToday ==100) {
@@ -92,10 +96,10 @@
     for(int i = 0; i < [texts count]; i++){
         Text *text = [texts objectAtIndex:i];
         if(text.right > 0){
-            NSLog(@"%@ 習得", text.word);
+            //NSLog(@"%@ 習得", text.word);
             right_texts_count++;
         }else{
-            NSLog(@"%@　未習得", text.word);
+            //NSLog(@"%@　未習得", text.word);
         }
     }
     _rightAllLabel.text = [NSString stringWithFormat:@"(正解数 %d問 / 全 %d問)", right_texts_count, all_texts_count];

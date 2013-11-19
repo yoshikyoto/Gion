@@ -28,7 +28,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    NSLog(@"%s", __func__);
+    //NSLog(@"%s", __func__);
 	// Do any additional setup after loading the view.
     // 背景
     [self view].backgroundColor = [UIColor whiteColor];
@@ -104,7 +104,7 @@
     if(is_button_tapped) return;
     is_button_tapped = true;
     
-    NSLog(@"%s 選ばれた答え: %d", __func__, sender.tag);
+    //NSLog(@"%s 選ばれた答え: %d", __func__, sender.tag);
     
     // 選択した答えを記録
     _selectAnswertInt = sender.tag;
