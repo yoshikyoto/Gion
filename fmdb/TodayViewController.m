@@ -92,6 +92,11 @@
         [tango_button addTarget:self action:@selector(tangoTapped:)forControlEvents:UIControlEventTouchUpInside]; // タップしたときの
         [tango_view addSubview:tango_button];
         
+        // > ←これ
+        UIImageView *migi_image = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"migi.png"]];
+        migi_image.frame = CGRectMake(289, position_y+59, 12, 16);
+        [tango_view addSubview:migi_image];
+        
         // 単語表示部分背景
         UIImageView *tango_image = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"pentagon_mark2.png"]];
         tango_image.frame = CGRectMake(20, position_y-2, 100, 27);
@@ -130,7 +135,7 @@
     question_button.frame = CGRectMake(0, screenHeight - 70, 320, 40);
     question_button.backgroundColor = buttonColor;
     [question_button setTitleColor:buttonTextColor forState:UIControlStateNormal];
-    [question_button setTitle:@" テストを受ける 〉" forState:UIControlStateNormal];
+    [question_button setTitle:@" テストを受ける ＞" forState:UIControlStateNormal];
     [question_button addTarget:self action:@selector(viewQuestion:)forControlEvents:UIControlEventTouchUpInside];
     question_button.titleLabel.font = [UIFont boldSystemFontOfSize:20];
     [[self view] addSubview:question_button];
@@ -139,6 +144,14 @@
     //position_y += 10;
     // スクロールビューの内部のサイズを決める
     tango_view.contentSize = CGSizeMake(320, position_y);
+    
+    UIApplication *application = [UIApplication sharedApplication];
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(forground) name:UIApplicationDidBecomeActiveNotification object:application];
+}
+
+- (void)forground{
+    NSLog(@"%s", __func__);
+    // TODO: バックグラウンドから復帰したときの処理
 }
 
 // 単語がタップされたとき

@@ -107,12 +107,14 @@
     [[self view] addSubview:right_bg];
     
     UILabel *right_label = [[UILabel alloc] initWithFrame:CGRectMake(10, 365, 140, 20)];
+    right_label.textColor = buttonTextColor;
     right_label.textAlignment = NSTextAlignmentCenter;
     right_label.text = @"正解した！";
     [[self view] addSubview:right_label];
     
     right = [[UILabel alloc] initWithFrame:CGRectMake(10, 382, 140, 40)];
     right.font = [UIFont boldSystemFontOfSize:18];
+    right.textColor = buttonTextColor;
     right.textAlignment = NSTextAlignmentCenter;
     [[self view] addSubview:right];
     right.text = [[NSString alloc] initWithFormat:@"%d回",text.right];
@@ -126,9 +128,11 @@
     UILabel *wrong_label = [[UILabel alloc] initWithFrame:CGRectMake(170, 365, 140, 20)];
     wrong_label.textAlignment = NSTextAlignmentCenter;
     wrong_label.text = @"間違えた…";
+    wrong_label.textColor = buttonTextColor;
     [[self view] addSubview:wrong_label];
     wrong = [[UILabel alloc] initWithFrame:CGRectMake(170, 382, 140, 40)];
     wrong.font = [UIFont boldSystemFontOfSize:18];
+    wrong.textColor = buttonTextColor;
     wrong.textAlignment = NSTextAlignmentCenter;
     [[self view] addSubview:wrong];
     wrong.text = [[NSString alloc] initWithFormat:@"%d回",text.wrong];
