@@ -9,6 +9,7 @@
 #import "QuestionViewController.h"
 #import "ResultViewController.h"
 #import "QuestionNavigationController.h"
+#import "GionDatabaseManager.h"
 
 @interface QuestionViewController ()
 
@@ -121,6 +122,8 @@
     result_text_label.font = [UIFont boldSystemFontOfSize:40];
      */
     UIImageView *result_image = [[UIImageView alloc] initWithFrame:CGRectMake(60, 200, 200, 240)];
+    
+    GionDatabaseManager *GDBM = [[GionDatabaseManager alloc] init];
     
     if(sender.tag == _correctAnswerInt){
         // 正解した場合

@@ -8,6 +8,7 @@
 
 #import "Text.h"
 #import "FMDatabase.h"
+#import "GionDatabaseManager.h"
 
 #define DB_FILE_NAME @"text.db"
 
@@ -64,16 +65,22 @@
     [db setShouldCacheStatements:YES];
     
     // SQL文を生成
-    NSString* sql = [NSString stringWithFormat:@"UPDATE text SET right = %d, wrong = %d WHERE textid = %d", right, wrong, textid];
-    if([db executeQuery:sql]){
+    NSString* sql = [NSString stringWithFormat:@"update text set right = %d, wrong = %d where textid = %d", right, wrong, textid];
+    NSLog(@"%@", sql);
+    if([db executeUpdate:sql]){
         NSLog(@"更新できた？");
     }else{
         NSLog(@"更新できなかった");NSLog(@"Error %@ - %d", [db lastErrorMessage], [db lastErrorCode]);
 
     }
+    
     //更新できなかった時の処理
     NSLog(@"Error %@ - %d", [db lastErrorMessage], [db lastErrorCode]);
     [db close];
+
+    GionDatabaseManager *GDBM = [[GionDatabaseManager alloc] init];
+    [GDBM executeSQL:[NSString stringWithFormat:@"UPDATE text SET right = %d, wrong = %d", right, wrong]];
+
 }
 
 

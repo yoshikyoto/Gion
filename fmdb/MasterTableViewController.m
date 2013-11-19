@@ -9,6 +9,7 @@
 #import "MasterTableViewController.h"
 #import "Text.h"
 #import "DetailViewController.h"
+#import "GionDatabaseManager.h"
 
 #define DB_FILE_NAME @"text.db"
 
@@ -35,6 +36,7 @@ NSArray *sectionList;
 {
     NSLog(@"%s", __func__);
     // このへんは呪文（サンプルのコピペ）
+    
     NSFileManager *fileManager = [NSFileManager defaultManager];
     NSError *error;
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);

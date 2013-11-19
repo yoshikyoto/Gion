@@ -34,7 +34,6 @@
         // データベースファイルのパスを取得する
         NSString *database_path = [NSString stringWithFormat:@"%@/%@", workDir_path, database_filename];
         
-        
         // パスにデータベースが存在しているかを確認
         if(![file_manager fileExistsAtPath:database_path]){
             // データベースのファイルが存在していない場合
