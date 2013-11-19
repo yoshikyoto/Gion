@@ -121,9 +121,9 @@
     [question_button setTitle:@"テストへ！" forState:UIControlStateNormal];
     [question_button addTarget:self action:@selector(viewQuestion:)forControlEvents:UIControlEventTouchUpInside];
     [[self view] addSubview:question_button];
-    position_y += 30;
+    //position_y += 30;
     
-    position_y += 10;
+    //position_y += 10;
     // スクロールビューの内部のサイズを決める
     tango_view.contentSize = CGSizeMake(320, position_y);
 }

@@ -32,12 +32,41 @@
 
 - (void)viewDidLoad
 {
+    NSLog(@"%s", __func__);
     [super viewDidLoad];
-    _text.text = text.text;
+    
+    // 単語を表示する部分
+    UIScrollView *tango_view = [[UIScrollView alloc] initWithFrame:CGRectMake(10, 80, 300, 300)];
+    tango_view.contentSize = CGSizeMake(300, 300);
+    tango_view.backgroundColor = lightColor;
+    [[tango_view layer] setCornerRadius:10.0]; // 角を丸く
+    [[tango_view layer] setBorderWidth:2.0]; // 境界
+    [[tango_view layer] setBorderColor:[darkColor CGColor]];
+    [[self view] addSubview:tango_view];
+    
+    // 単語
+    if(!word){
+        NSLog(@"%s wordが初期化されてない。初期化します", __func__);
+        word = [[UILabel alloc] init];
+    }
+    word.backgroundColor = darkColor;
+    word.frame = CGRectMake(0, 0, 300, 40);
+    word.font = [UIFont systemFontOfSize:24];
+    word.textColor = lightTextColor;
     word.text = text.word;
+    [tango_view addSubview:word];
+    
+    _text.text = text.text;
     meaning.text = text.meaning;
     right.text = [[NSString alloc] initWithFormat:@"%d回",text.right];
     wrong.text = [[NSString alloc] initWithFormat:@"%d回",text.wrong];
+    
+    // 意味
+    UILabel *meaning_index_label = [[UILabel alloc] initWithFrame:CGRectMake(0, 150, 320, 20)];
+    meaning_index_label.textAlignment = NSTextAlignmentCenter;
+    meaning_index_label.text = @"意味";
+    [[self view] addSubview:meaning_index_label];
+    
 
     /*
      目標：objective-cでの文字列操作とかNSLogの使い方を覚える
@@ -66,9 +95,8 @@
     if(self){
         NSLog(@"%s", __func__);
         text = t;
-        // 背景
-        self.view.backgroundColor = [UIColor whiteColor];
         
+        /*
         // 単語
         UILabel *word_label = [[UILabel alloc] initWithFrame:CGRectMake(0, 90, 320, 40)];
         word_label.font = [UIFont systemFontOfSize:28];
@@ -123,6 +151,7 @@
         wrong_count_label.text = [NSString stringWithFormat:@"%d回", text.wrong];
         NSLog(@"wrong->%d",text.wrong);
         [[self view] addSubview:wrong_count_label];
+         */
     }
     return self;
 }

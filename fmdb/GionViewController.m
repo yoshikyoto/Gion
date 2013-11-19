@@ -19,8 +19,6 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
-        // 文字の色とか指定
-        NSLog(@"%s", __func__);
 
     }
     return self;
@@ -28,6 +26,7 @@
 
 - (void)viewDidLoad
 {
+    NSLog(@"%s", __func__);
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
     
@@ -36,6 +35,7 @@
     lightColor = [UIColor colorWithRed:0.9 green:1.0 blue:1.0 alpha:1.0];
     darkColor = [UIColor colorWithRed:0.2 green:0.2 blue:0.5 alpha:1.0];
     textColor = [UIColor colorWithRed:0.0 green:0.0 blue:0.0 alpha:1.0];
+    lightTextColor = [UIColor whiteColor];
     buttonColor = [UIColor yellowColor];
     screenHeight = [UIScreen mainScreen].applicationFrame.size.height;
 }
