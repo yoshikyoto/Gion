@@ -7,9 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "GionViewController.h"
 
 @class QuestionViewController;
-@interface ResultViewController : UIViewController{
+@interface ResultViewController : GionViewController{
     QuestionViewController *parent_question_view;
 }
 

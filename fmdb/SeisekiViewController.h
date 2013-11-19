@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "GionViewController.h"
 
-@interface SeisekiViewController : UIViewController
+@interface SeisekiViewController : GionViewController
 @property (weak, nonatomic) IBOutlet UILabel *achivementLabel;
 @property (weak, nonatomic) IBOutlet UILabel *rightAllLabel;
 @property (weak, nonatomic) IBOutlet UILabel *runningLabel;

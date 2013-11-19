@@ -31,7 +31,7 @@
     //NSLog(@"%s", __func__);
 	// Do any additional setup after loading the view.
     // 背景
-    [self view].backgroundColor = [UIColor whiteColor];
+//    [self view].backgroundColor = [UIColor whiteColor];
     [self.navigationItem setHidesBackButton:YES];
     
     // 問題
@@ -65,6 +65,7 @@
     for(int i = 0; i < 4; i++){
         // ボタン初期化
         UIButton *button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+        button.backgroundColor = [UIColor redColor];
         if(i%2 == 0) {                     // 左上と左下
             button.frame = CGRectMake(15, 280+50*i, 140, 90);
         } else {                            // 右上と右下
