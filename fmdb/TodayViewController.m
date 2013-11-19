@@ -38,8 +38,6 @@
 	// Do any additional setup after loading the view.
     //CGRect screen_rect = [UIScreen mainScreen].applicationFrame;
     
-    
-    
     // 単語を表示するためのビュー (デバッグ用に色をつけてます)
     UIScrollView *tango_view = [[UIScrollView alloc] init];
     //tango_view.backgroundColor = [UIColor colorWithRed:0.9 green:0.9 blue:0.9 alpha:1.0];
@@ -54,6 +52,8 @@
     _todaysTexts = [[NSMutableArray alloc] init];
     [self initTodaysTexts];
     //_todaysTexts = [self randomQuestion:5 :_todaysTexts];
+    
+    _todaysTexts = [self shuffleArray:_todaysTexts];
     
     /* 枠付きボタンサンプル
      UIButton *dungeon_button = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -392,6 +392,7 @@
      * わからなくなったらぐぐるか facebook
      ******************************************************************/
     
+    /*
     NSMutableArray *before = [_todaysTexts mutableCopy];
     NSMutableArray *after = [[NSMutableArray alloc] init];
     
@@ -409,12 +410,29 @@
     [self printArray:before];
     NSLog(@"並び替え後");
     [self printArray:after];
+     */
+    _todaysTexts = [self shuffleArray:_todaysTexts];
     
     QuestionNavigationController *qnc = [[QuestionNavigationController alloc] initWithRootViewController:qvc];
     qnc.allTexts = _allTexts;
     qnc.selectedTexts = _todaysTexts;
     
     [self presentViewController:qnc animated:YES completion:nil];
+}
+
+- (NSMutableArray *)shuffleArray:(NSMutableArray *)array{
+    NSMutableArray *before = [array mutableCopy];
+    NSMutableArray *after = [[NSMutableArray alloc] init];
+    
+    // ここからスタート
+    int a[5];
+    for(int i = 0; i< 5; i++){
+        a[i] = arc4random() % [before count];
+        Text *nakami = [before objectAtIndex:a[i]];
+        [before removeObjectAtIndex :a[i]];
+        [after addObject:nakami];
+    }
+    return after;
 }
 
 - (void)printArray:(NSMutableArray *)array{
