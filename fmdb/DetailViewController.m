@@ -55,7 +55,8 @@
     word.frame = CGRectMake(0, position_y, 300, 60);
     word.font = [UIFont boldSystemFontOfSize:24];
     word.textColor = lightTextColor;
-    word.text = [NSString stringWithFormat:@"　%@", text.word];
+    word.text = [NSString stringWithFormat:@"%@", text.word];
+    word.textAlignment = NSTextAlignmentCenter;
     [tango_view addSubview:word];
     position_y += 60;
     

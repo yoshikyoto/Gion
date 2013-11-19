@@ -71,43 +71,54 @@
     int position_y = 10;
     for(int i = 0; i < [_todaysTexts count]; i++){
         Text *text = [_todaysTexts objectAtIndex:i];
-        // ボタン。実際にはタップして移動するようにする
+        // ボタン。
         UIButton *tango_button = [UIButton buttonWithType:UIButtonTypeCustom];
-        tango_button.frame = CGRectMake(10, position_y+10, 300, 100);
+        tango_button.frame = CGRectMake(10, position_y+10, 300, 115);
         tango_button.backgroundColor = lightColor; // lightColor は GionViewController で指定
         [[tango_button layer] setCornerRadius:8.0]; // 角をまるく
         [[tango_button layer] setBorderWidth:1.0]; // 境界の太さ
         [[tango_button layer] setBorderColor:[darkColor CGColor]];
+        // グラデーション
+        CAGradientLayer *gradient = [CAGradientLayer layer];
+        gradient.frame = tango_button.bounds;
+        gradient.colors = @[
+                            (id)[[UIColor colorWithRed:0 green:0 blue:0 alpha:0] CGColor],
+                            (id)[[UIColor colorWithRed:0 green:0 blue:0 alpha:0.05] CGColor]
+                            ];
+        gradient.cornerRadius = 8;
+        [tango_button.layer insertSublayer: gradient atIndex: 0];
+        // ここまでグラデーション
         tango_button.tag = i;
         [tango_button addTarget:self action:@selector(tangoTapped:)forControlEvents:UIControlEventTouchUpInside]; // タップしたときの
         [tango_view addSubview:tango_button];
         
         // 単語表示部分背景
-        UIImageView *tango_image = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"pentagon.png"]];
-        tango_image.frame = CGRectMake(20, position_y+2, 100, 20);
+        UIImageView *tango_image = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"pentagon_mark2.png"]];
+        tango_image.frame = CGRectMake(20, position_y-2, 100, 27);
         [tango_view addSubview:tango_image];
         
         // 単語表示用 UILabel
-        UILabel *tango_label = [[UILabel alloc] initWithFrame:CGRectMake(20, position_y, 100, 20)];
-        tango_label.text = text.word; //[NSString stringWithFormat:@"単語%d", i];
+        UILabel *tango_label = [[UILabel alloc] initWithFrame:CGRectMake(20, position_y-3, 100, 20)];
+        tango_label.text = text.word;
         tango_label.textColor = [UIColor whiteColor];
         tango_label.font = [UIFont boldSystemFontOfSize:14];
         tango_label.textAlignment = NSTextAlignmentCenter;
-        [tango_view addSubview:tango_label]; // ScrollView に addSubview
+        [tango_view addSubview:tango_label];
         position_y += 24;
         
         // 単語の意味表示
-        UILabel *meaning_label = [[UILabel alloc] initWithFrame:CGRectMake(20, position_y, 270, 15)];
-        meaning_label.text = [NSString stringWithFormat:@"●%@",text.meaning]; //@"意味";
+        UILabel *meaning_label = [[UILabel alloc] initWithFrame:CGRectMake(20, position_y, 270, 30)];
+        meaning_label.text = [NSString stringWithFormat:@"●%@",text.meaning];
         meaning_label.textColor = [UIColor grayColor];
         meaning_label.font = [UIFont systemFontOfSize:12];
-        [tango_view addSubview:meaning_label]; // ScrollView に addSubview
-        position_y += 15;
+        meaning_label.numberOfLines = 2;
+        [tango_view addSubview:meaning_label];
+        position_y += 30;
         
         // 例文
         UILabel *reibun_rabel = [[UILabel alloc] initWithFrame:CGRectMake(20, position_y, 270, 65)];
-        reibun_rabel.numberOfLines = 3; // 行数
-        reibun_rabel.text = text.text; //[NSString stringWithFormat:@"”%@”", @"例文テキストーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー"];
+        reibun_rabel.numberOfLines = 3;
+        reibun_rabel.text = text.text;
         [tango_view addSubview:reibun_rabel];
         position_y += 65;
         
@@ -116,9 +127,9 @@
     
     // テスト画面に進むボタン
     UIButton *question_button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    question_button.frame = CGRectMake(100, screenHeight - 70, 120, 40);
+    question_button.frame = CGRectMake(0, screenHeight - 70, 320, 40);
     question_button.backgroundColor = buttonColor;
-    [question_button setTitle:@"テストへ！" forState:UIControlStateNormal];
+    [question_button setTitle:@"テストを受ける" forState:UIControlStateNormal];
     [question_button addTarget:self action:@selector(viewQuestion:)forControlEvents:UIControlEventTouchUpInside];
     [[self view] addSubview:question_button];
     //position_y += 30;

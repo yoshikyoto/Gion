@@ -28,6 +28,10 @@
 - (void)viewDidLoad
 {
     NSLog(@"%s", __func__);
+    // 色
+    [UINavigationBar appearance].barTintColor = [UIColor yellowColor];
+    [UITabBar appearance].barTintColor = [UIColor whiteColor];
+    
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
     
