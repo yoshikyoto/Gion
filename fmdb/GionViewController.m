@@ -35,7 +35,10 @@
     self.view.backgroundColor = [UIColor colorWithRed:0.8 green:0.8 blue:1.0 alpha:1.0];
     lightColor = [UIColor colorWithRed:0.9 green:1.0 blue:1.0 alpha:1.0];
     darkColor = [UIColor colorWithRed:0.2 green:0.2 blue:0.5 alpha:1.0];
-    textColor = [UIColor colorWithRed:0.0 green:0.0 blue:0.0 alpha:1.0];}
+    textColor = [UIColor colorWithRed:0.0 green:0.0 blue:0.0 alpha:1.0];
+    buttonColor = [UIColor yellowColor];
+    screenHeight = [UIScreen mainScreen].applicationFrame.size.height;
+}
 
 - (void)didReceiveMemoryWarning
 {

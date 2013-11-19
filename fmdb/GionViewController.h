@@ -12,5 +12,8 @@
     UIColor *lightColor;
     UIColor *darkColor;
     UIColor *textColor;
+    UIColor *buttonColor;
+    
+    int screenHeight;
 }
 @end
