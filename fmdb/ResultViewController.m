@@ -32,7 +32,7 @@
     // 戻るボタン消す
     [self.navigationItem setHidesBackButton:YES];
     // 背景
-    [self view].backgroundColor = [UIColor whiteColor];
+    //[self view].backgroundColor = [UIColor whiteColor];
     // タイトル設定
     self.navigationItem.title = @"結果";
     
