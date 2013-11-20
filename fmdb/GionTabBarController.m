@@ -34,6 +34,29 @@
     [UINavigationBar appearance].tintColor = [UIColor whiteColor];
     [UITabBar appearance].barTintColor = [UIColor colorWithRed:235/255.0 green:241/255.0 blue:222/255.0 alpha:1.0];
     
+    // アイコン
+    UIImage *today_on = [[UIImage imageNamed:@"today_on"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    UIImage *today_off = [[UIImage imageNamed:@"today_off"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    UITabBarItem *today_item = [[UITabBarItem alloc] initWithTitle:@"今日の単語" image:today_off selectedImage:today_on];
+
+    UIImage *seiseki_on = [[UIImage imageNamed:@"seiseki_on"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    UIImage *seiseki_off = [[UIImage imageNamed:@"seiseki_off"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    UITabBarItem *seiseki_item = [[UITabBarItem alloc] initWithTitle:@"成績" image:seiseki_off selectedImage:seiseki_on];
+
+    UIImage *dict_on = [[UIImage imageNamed:@"dict_on"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    UIImage *dict_off = [[UIImage imageNamed:@"dict_off"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    UITabBarItem *dict_item = [[UITabBarItem alloc] initWithTitle:@"辞書" image:dict_off selectedImage:dict_on];
+
+    //item.selectedImage = image;
+    UIViewController *today = [self.viewControllers objectAtIndex:0];
+    UIViewController *seiseki = [self.viewControllers objectAtIndex:1];
+    UIViewController *dict = [self.viewControllers objectAtIndex:2];
+
+    today.tabBarItem = today_item;
+    seiseki.tabBarItem = seiseki_item;
+    dict.tabBarItem = dict_item;
+    
+    
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
     
