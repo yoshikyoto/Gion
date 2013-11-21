@@ -132,18 +132,18 @@ NSArray *sectionList;
     // データベースをロード
     [self loadDataFromDB];
 
-    sectionList = [NSArray arrayWithObjects:@"あ", @"か", @"さ", @"た", @"な", @"は",@"ま",@"や",@"ら",@"わ",nil];
+    sectionList = [NSArray arrayWithObjects:@"あ行", @"か行", @"さ行", @"た行", @"な行", @"は行", @"ま行", @"や行", @"ら行", @"わ行", nil];
     dataSource = [NSDictionary dictionaryWithObjectsAndKeys:
-                  aGyo, @"あ",
-                  kaGyo, @"か",
-                  saGyo, @"さ",
-                  taGyo, @"た",
-                  naGyo, @"な",
-                  haGyo, @"は",
-                  maGyo, @"ま",
-                  yaGyo, @"や",
-                  raGyo, @"ら",
-                  waGyo, @"わ",
+                  aGyo, @"あ行",
+                  kaGyo, @"か行",
+                  saGyo, @"さ行",
+                  taGyo, @"た行",
+                  naGyo, @"な行",
+                  haGyo, @"は行",
+                  maGyo, @"ま行",
+                  yaGyo, @"や行",
+                  raGyo, @"ら行",
+                  waGyo, @"わ行",
                   nil];
 }
 
@@ -212,20 +212,24 @@ NSArray *sectionList;
     Text *sender_text = [items objectAtIndex:indexPath.row];
     
     DetailViewController *detailViewController = [[DetailViewController alloc] initWithText:sender_text];
-    //DetailViewController *detailViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"DetailView"];
-    //NSString *sectionName = [sectionList objectAtIndex:indexPath.section];
-    //NSArray *items = [dataSource objectForKey:sectionName];
-    
-    //detailViewController.title = @"辞書 - ";
-    //detailViewController.text = [items objectAtIndex:indexPath.row];
+
     [self.navigationController pushViewController:detailViewController animated:YES];
 }
 
 
-// TableViewのインデックスリストに表示させたい文字列を設定する。
+// TableViewのインデックスリストに表示させたい文字列を設定
 - (NSArray *)sectionIndexTitlesForTableView:(UITableView *)tableView
 {
-    return sectionList;
+    NSArray* sectionListwithDots = [NSArray arrayWithObjects:@"あ", @"●", @"か", @"●", @"さ", @"●", @"た", @"●", @"な", @"●", @"は", @"●", @"ま", @"●", @"や", @"●", @"ら", @"●", @"わ",nil];
+    //return sectionList;
+    return sectionListwithDots;
+}
+
+// インデックスリストの各値をおした時にどこのセクションに飛ばすかを設定
+- (NSInteger)tableView:(UITableView *)tableView sectionForSectionIndexTitle:(NSString *)title atIndex:(NSInteger)index
+{
+    if(index%2 == 0) return index/2;
+    else return (index-1)/2;
 }
 
 
