@@ -11,7 +11,10 @@
 #import "GionViewController.h"
 
 @class QuestionViewController;
-@interface TodayViewController : GionViewController
+@interface TodayViewController : GionViewController{
+    UIButton *question_button;
+    UIScrollView *tango_view;
+}
 
 @property NSMutableArray *allTexts;
 @property NSMutableArray *todaysTexts;

@@ -41,7 +41,12 @@
 
     
     // 単語を表示するためのビュー (デバッグ用に色をつけてます)
-    UIScrollView *tango_view = [[UIScrollView alloc] init];
+    if(tango_view){
+        [tango_view removeFromSuperview];
+    }
+    tango_view = [[UIScrollView alloc] init];
+    //[[self view] addSubview:tango_view];
+
     //tango_view.backgroundColor = [UIColor colorWithRed:0.9 green:0.9 blue:0.9 alpha:1.0];
     tango_view.frame = CGRectMake(0, 60, 320, screenHeight - 80);
     [[self view] addSubview:tango_view];
@@ -63,6 +68,7 @@
         _todaysTexts = [self shuffleArray:_todaysTexts];
         
         [self saveTodaysTexts];
+        [self viewQuestionButton];
         
         UIAlertView *alert = [[UIAlertView alloc] init];
         alert.title = @"今日の単語を更新しました！";
@@ -149,21 +155,19 @@
         position_y += 20;
     }
     
-    // テスト画面に進むボタン
-    UIButton *question_button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    question_button.frame = CGRectMake(0, screenHeight - 70, 320, 42);
-    question_button.backgroundColor = buttonColor;
-    [question_button setTitleColor:buttonTextColor forState:UIControlStateNormal];
-    [question_button setTitle:@" テストを受ける ＞" forState:UIControlStateNormal];
-    [question_button addTarget:self action:@selector(viewQuestion:)forControlEvents:UIControlEventTouchUpInside];
-    question_button.titleLabel.font = [UIFont boldSystemFontOfSize:20];
-    [[self view] addSubview:question_button];
-    position_y += 50;
-    
     //position_y += 10;
     // スクロールビューの内部のサイズを決める
     tango_view.contentSize = CGSizeMake(320, position_y);
     
+    // ちょっと待ってからforgroundオブザーバー指定しないとなんかおかしなことになる
+    [NSTimer scheduledTimerWithTimeInterval:0.5
+                                     target:self
+                                   selector:@selector(addForegroundObserver)
+                                   userInfo:nil
+                                    repeats:false];
+}
+
+- (void)addForegroundObserver{
     UIApplication *application = [UIApplication sharedApplication];
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(forground) name:UIApplicationDidBecomeActiveNotification object:application];
 }
@@ -242,6 +246,18 @@
         [db close];
         [rs close];
     }
+}
+
+- (void)viewQuestionButton{
+    // テスト画面に進むボタン
+    question_button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    question_button.frame = CGRectMake(0, screenHeight - 70, 320, 42);
+    question_button.backgroundColor = buttonColor;
+    [question_button setTitleColor:buttonTextColor forState:UIControlStateNormal];
+    [question_button setTitle:@" テストを受ける ＞" forState:UIControlStateNormal];
+    [question_button addTarget:self action:@selector(viewQuestion:)forControlEvents:UIControlEventTouchUpInside];
+    question_button.titleLabel.font = [UIFont boldSystemFontOfSize:20];
+    [[self view] addSubview:question_button];
 }
 
 - (void)initTodaysTexts{
@@ -458,6 +474,8 @@
     QuestionViewController *qvc = [[QuestionViewController alloc] init];
     // 最初の問題
     qvc.questionNum = 0;
+    
+    [question_button removeFromSuperview];
     
     /******************************************************************
      * Phyoさんへの課題 11月 6日
