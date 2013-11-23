@@ -91,6 +91,7 @@
 
 - (void)updateRunningDate{
     //NSLog(@"%s", __func__);
+
     // NSUserDefaultsを使って継続日数を管理する
     NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
     NSMutableDictionary *md = [NSMutableDictionary dictionary];
@@ -103,7 +104,6 @@
     [md setObject:@"1" forKey:@"RUNNING"]; // RUNNINGは今の連続起動日数
     [md setObject:@"1" forKey:@"RUNNINGMAX"]; // RUNNINGMAXは過去で一番長い連続起動日数
     [defaults registerDefaults:md];
-    
     
     // この起動が今日1回目かチェック
     NSDate* lastDate = [defaults objectForKey:@"DATE"];
@@ -148,6 +148,7 @@
         
     }
     //NSLog( [lastDate description] );
+    [defaults synchronize];
 }
 
 - (void)close:(id)sender{

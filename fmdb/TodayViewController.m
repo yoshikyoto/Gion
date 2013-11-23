@@ -38,7 +38,20 @@
 	// Do any additional setup after loading the view.
     //CGRect screen_rect = [UIScreen mainScreen].applicationFrame;
     
-
+    
+    // NSUserDefaultsを使って継続日数を管理する
+    NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
+    NSMutableDictionary *md = [NSMutableDictionary dictionary];
+    NSDate* date = [NSDate dateWithTimeIntervalSinceNow:[[NSTimeZone systemTimeZone] secondsFromGMT]]; // タイムゾーンに合わせて現在日時取得
+    //NSDate* yesterday = [NSDate dateWithTimeIntervalSinceNow:-1*24*60*60];
+    
+    // 初回起動時用の初期化
+    [md setObject:date forKey:@"DATE"]; // DATEは今回の起動日時を記録．ただし今日2回目以降の起動であれば更新されない．
+    [md setObject:date forKey:@"LASTDATE"]; // LASTDATEは前回の起動日時を記録．ただし今日2回目以降の起動であれば更新されない．
+    [md setObject:@"1" forKey:@"RUNNING"]; // RUNNINGは今の連続起動日数
+    [md setObject:@"1" forKey:@"RUNNINGMAX"]; // RUNNINGMAXは過去で一番長い連続起動日数
+    [defaults registerDefaults:md];
+    
     
     // 単語を表示するためのビュー (デバッグ用に色をつけてます)
     if(tango_view){
@@ -68,6 +81,7 @@
         _todaysTexts = [self shuffleArray:_todaysTexts];
         
         [self saveTodaysTexts];
+        [question_button removeFromSuperview];
         [self viewQuestionButton];
         
         UIAlertView *alert = [[UIAlertView alloc] init];
@@ -78,6 +92,25 @@
     }else{
         NSLog(@"%s 今日初回起動でない", __func__);
         [self loadTodaysTexts];
+        
+
+        // この起動が今日1回目かチェック
+        NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
+        NSDate* date = [NSDate dateWithTimeIntervalSinceNow:[[NSTimeZone systemTimeZone] secondsFromGMT]]; // タイムゾーンに合わせて現在日時取得
+        NSDate* lastDate = [defaults objectForKey:@"DATE"];
+        NSDateFormatter *df = [[NSDateFormatter alloc]init];
+        df.dateFormat = @"yyyy/MM/dd";
+        NSString *str1 = [df stringFromDate:date]; // 今回起動（日付のみ）
+        NSString *str2 = [df stringFromDate:lastDate]; // 前回起動（日付のみ）
+
+        [question_button removeFromSuperview];
+        if ([str1 isEqualToString:str2]) {
+            // 今日のテストが終わっている
+            // [self viewResultButton:nil];
+        }else{
+            // 今日のテストが終わっていない
+            [self viewQuestionButton];
+        }
     }
     
     /* 枠付きボタンサンプル
@@ -155,6 +188,8 @@
         position_y += 20;
     }
     
+    position_y += 50;
+    
     //position_y += 10;
     // スクロールビューの内部のサイズを決める
     tango_view.contentSize = CGSizeMake(320, position_y);
@@ -170,6 +205,26 @@
 - (void)addForegroundObserver{
     UIApplication *application = [UIApplication sharedApplication];
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(forground) name:UIApplicationDidBecomeActiveNotification object:application];
+    
+    NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
+    [nc addObserver:self selector:@selector(viewResultButton:) name:@"TestFinished" object:nil];
+}
+
+- (void)viewResultButton:(id)sender{
+    NSLog(@"%s 結果へボタンを表示したい", __func__);
+    question_button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    question_button.frame = CGRectMake(0, screenHeight - 70, 320, 42);
+    question_button.backgroundColor = buttonColor;
+    [question_button setTitleColor:buttonTextColor forState:UIControlStateNormal];
+    [question_button setTitle:@" 結果画面へ ＞" forState:UIControlStateNormal];
+    [question_button addTarget:self action:@selector(viewResult:)forControlEvents:UIControlEventTouchUpInside];
+    question_button.titleLabel.font = [UIFont boldSystemFontOfSize:20];
+    [[self view] addSubview:question_button];
+}
+
+- (void)viewResult:(id)sender{
+    NSLog(@"%s", __func__);
+    [self presentViewController:qnc animated:YES completion:nil];
 }
 
 - (void)forground{
@@ -512,7 +567,7 @@
     [self printArray:after];
      */
     
-    QuestionNavigationController *qnc = [[QuestionNavigationController alloc] initWithRootViewController:qvc];
+    qnc = [[QuestionNavigationController alloc] initWithRootViewController:qvc];
     qnc.allTexts = _allTexts;
     qnc.selectedTexts = [self shuffleArray:_todaysTexts];
     

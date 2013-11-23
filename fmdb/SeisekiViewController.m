@@ -114,6 +114,7 @@
     NSMutableArray *texts = tabbar.texts;
     int all_texts_count = [texts count];
     int right_texts_count = 0;
+    /*
     for(int i = 0; i < [texts count]; i++){
         Text *text = [texts objectAtIndex:i];
         if(text.right > 0){
@@ -123,6 +124,7 @@
             //NSLog(@"%@　未習得", text.word);
         }
     }
+     */
     _rightAllLabel.text = [NSString stringWithFormat:@"(正解数 %d問 / 全 %d問)", right_texts_count, all_texts_count];
 
     

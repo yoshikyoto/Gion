@@ -9,11 +9,15 @@
 #import <UIKit/UIKit.h>
 #import "GionTabBarController.h"
 #import "GionViewController.h"
+#import "ResultViewController.h"
 
 @class QuestionViewController;
+@class QuestionNavigationController;
+
 @interface TodayViewController : GionViewController{
     UIButton *question_button;
     UIScrollView *tango_view;
+    QuestionNavigationController *qnc;
 }
 
 @property NSMutableArray *allTexts;
