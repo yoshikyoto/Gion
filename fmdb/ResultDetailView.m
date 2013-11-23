@@ -92,7 +92,7 @@
                 selection_button.frame = CGRectMake(0, 41*(j+1), 320, 40);
                 selection_button.backgroundColor = [UIColor whiteColor];
                 selection_button.tag = i*4 + j;
-                UILabel *selection_label = [[UILabel alloc] initWithFrame:CGRectMake(5, 0, 310, 40)];
+                UILabel *selection_label = [[UILabel alloc] initWithFrame:CGRectMake(60, 0, 310, 40)];
                 selection_label.text = answer_text.word;//[NSString stringWithFormat:@"ふわふわ%d", j+1];
                 [selection_button addTarget:self action:@selector(answerButtonTapped:)forControlEvents:UIControlEventTouchUpInside];
                 [selection_button addSubview:selection_label];
@@ -100,12 +100,14 @@
                 UIButton *answer_button = [qvc.answerButtonArray objectAtIndex:j];
                 if(answer_button.tag == qvc.correctAnswerInt){
                     // 正解の選択肢だった場合、◯を表示
-                    UILabel *result_label = [[UILabel alloc] initWithFrame:CGRectMake(240, 0, 40, 40)];
+                    UILabel *result_label = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, 40, 40)];
                     result_label.text = @"◯";
+                    result_label.textAlignment = NSTextAlignmentCenter;
                     [selection_button addSubview:result_label];
                 }else if(qvc.selectAnswertInt == j){
-                    UILabel *result_label = [[UILabel alloc] initWithFrame:CGRectMake(240, 0, 40, 40)];
+                    UILabel *result_label = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, 40, 40)];
                     result_label.text = @"×";
+                    result_label.textAlignment = NSTextAlignmentCenter;
                     [selection_button addSubview:result_label];
                 }
                 [question_space addSubview:selection_button];

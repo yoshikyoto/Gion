@@ -38,6 +38,8 @@
 	// Do any additional setup after loading the view.
     //CGRect screen_rect = [UIScreen mainScreen].applicationFrame;
     
+
+    
     // 単語を表示するためのビュー (デバッグ用に色をつけてます)
     UIScrollView *tango_view = [[UIScrollView alloc] init];
     //tango_view.backgroundColor = [UIColor colorWithRed:0.9 green:0.9 blue:0.9 alpha:1.0];
@@ -50,10 +52,27 @@
     //_selectedTexts = tab_bar.texts;
     
     _todaysTexts = [[NSMutableArray alloc] init];
-    [self initTodaysTexts];
-    //_todaysTexts = [self randomQuestion:5 :_todaysTexts];
+
     
-    _todaysTexts = [self shuffleArray:_todaysTexts];
+    if([self isFirstLaunchToday]){
+        NSLog(@"%s 今日初回起動である", __func__);
+        [self initTodaysTexts];
+        //_todaysTexts = [self randomQuestion:5 :_todaysTexts];
+        
+        // 今日のテキストをシャッフルして
+        _todaysTexts = [self shuffleArray:_todaysTexts];
+        
+        [self saveTodaysTexts];
+        
+        UIAlertView *alert = [[UIAlertView alloc] init];
+        alert.title = @"今日の単語を更新しました！";
+        [alert addButtonWithTitle:@"OK"];
+        [alert show];
+        // 記録
+    }else{
+        NSLog(@"%s 今日初回起動でない", __func__);
+        [self loadTodaysTexts];
+    }
     
     /* 枠付きボタンサンプル
      UIButton *dungeon_button = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -152,6 +171,30 @@
 - (void)forground{
     NSLog(@"%s", __func__);
     // TODO: バックグラウンドから復帰したときの処理
+    [self viewDidLoad];
+}
+
+- (BOOL)isFirstLaunchToday{
+    // NSUserDefaultsを使って継続日数を管理する
+    NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
+    NSDate* date = [NSDate dateWithTimeIntervalSinceNow:[[NSTimeZone systemTimeZone] secondsFromGMT]]; // タイムゾーンに合わせて現在日時取得
+    //NSDate* yesterday = [NSDate dateWithTimeIntervalSinceNow:-1*24*60*60];
+    
+    // この起動が今日1回目かチェック
+    NSDate* lastDate = [defaults objectForKey:@"LAUNCH_TODAIVIEW_DATE"];
+    NSDateFormatter *df = [[NSDateFormatter alloc]init];
+    df.dateFormat = @"yyyy/MM/dd";
+    NSString *str1 = [df stringFromDate:date]; // 今回起動（日付のみ）
+    NSString *str2 = [df stringFromDate:lastDate]; // 前回起動（日付のみ）
+    
+    if ([str1 isEqualToString:str2]) {
+        return false;
+    } else {
+        NSLog(@"%s LAUNCH_TODAIVIEW_DATE を更新", __func__);
+        [defaults setObject:date forKey:@"LAUNCH_TODAIVIEW_DATE"]; // 今回起動日時を更新
+        [defaults synchronize];
+        return true;
+    }
 }
 
 // 単語がタップされたとき
@@ -160,6 +203,45 @@
     DetailViewController *dvc = [[DetailViewController alloc] initWithText:sender_text];
     //dvc.text = [_todaysTexts objectAtIndex:sender.tag];
     [self.navigationController pushViewController:dvc animated:YES];
+}
+
+- (void)saveTodaysTexts{
+    NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
+    for(int i = 0; i < [_todaysTexts count]; i++){
+        Text *text = [_todaysTexts objectAtIndex:i];
+        NSString *key = [NSString stringWithFormat:@"TODAYSTEXT%d", i];
+        [defaults setInteger:text.textid forKey:key];
+    }
+    [defaults synchronize];
+}
+
+- (void)loadTodaysTexts{
+    NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
+    GionTabBarController *tab = (GionTabBarController *)self.tabBarController;
+    FMDatabase *db = tab.db;
+    for(int i = 0; i < 5; i++){
+        NSString *key = [NSString stringWithFormat:@"TODAYSTEXT%d", i];
+        int textid = [defaults integerForKey:key];
+        NSLog(@"%d", textid);
+        NSString *sql = [NSString stringWithFormat:@"SELECT * FROM text WHERE textid = %d", textid];
+        [db open];
+        FMResultSet* rs = [db executeQuery:sql];
+        
+        if([rs next]){
+            Text *text = [[Text alloc] init];
+            
+            text.textid = [rs intForColumn:@"textid"];
+            text.text = [rs stringForColumn:@"text"];
+            text.word = [rs stringForColumn:@"word"];
+            text.meaning = [rs stringForColumn:@"meaning"];
+            text.right = [rs intForColumn:@"right"];
+            text.wrong = [rs intForColumn:@"wrong"];
+            
+            [_todaysTexts addObject:text];
+        }
+        [db close];
+        [rs close];
+    }
 }
 
 - (void)initTodaysTexts{

@@ -43,14 +43,14 @@
     [[self view] addSubview:result_bg];
      */
     
-    UILabel *result_label1 = [[UILabel alloc] initWithFrame:CGRectMake(40, 100, 80, 30)];
+    UILabel *result_label1 = [[UILabel alloc] initWithFrame:CGRectMake(40, 90, 80, 30)];
     result_label1.text = @"5問中";
     result_label1.textAlignment = NSTextAlignmentRight;
     [[self view] addSubview:result_label1];
     
     // NavigationController から正解数を取得
     QuestionNavigationController *qnc = (QuestionNavigationController *)self.navigationController;
-    UILabel *result_label2 = [[UILabel alloc] initWithFrame:CGRectMake(120, 100, 80, 30)];
+    UILabel *result_label2 = [[UILabel alloc] initWithFrame:CGRectMake(120, 90, 80, 30)];
     result_label2.text = [NSString stringWithFormat:@"%d", qnc.correctCount];
     result_label2.textAlignment = NSTextAlignmentCenter;
     [[self view] addSubview:result_label2];
@@ -60,7 +60,7 @@
     [defaults setInteger:qnc.correctCount forKey:@"TODAYSRESULT"];
 
 
-    UILabel *result_label3 = [[UILabel alloc] initWithFrame:CGRectMake(200, 100, 80, 30)];
+    UILabel *result_label3 = [[UILabel alloc] initWithFrame:CGRectMake(200, 90, 80, 30)];
     result_label3.text = @"問正解";
     result_label3.textAlignment = NSTextAlignmentLeft;
     [[self view] addSubview:result_label3];
