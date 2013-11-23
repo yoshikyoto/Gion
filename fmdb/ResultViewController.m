@@ -50,7 +50,7 @@
     
     // NavigationController から正解数を取得
     QuestionNavigationController *qnc = (QuestionNavigationController *)self.navigationController;
-    UILabel *result_label2 = [[UILabel alloc] initWithFrame:CGRectMake(120, 90, 80, 30)];
+    UILabel *result_label2 = [[UILabel alloc] initWithFrame:CGRectMake(120, 85, 80, 30)];
     result_label2.text = [NSString stringWithFormat:@"%d", qnc.correctCount];
     result_label2.textAlignment = NSTextAlignmentCenter;
     [[self view] addSubview:result_label2];

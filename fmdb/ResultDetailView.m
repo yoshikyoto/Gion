@@ -47,7 +47,7 @@
                 question_space.backgroundColor = [UIColor colorWithRed:235/255.0 green:241/255.0 blue:222/255.0 alpha:1.0];
             }else{
                 // 間違い
-                question_space.backgroundColor = [UIColor colorWithRed:1.0 green:0.9 blue:0.9 alpha:1.0];
+                question_space.backgroundColor = [UIColor colorWithRed:0.9 green:0.9 blue:1.0 alpha:1.0];
             }
             position_y += 41;
             
