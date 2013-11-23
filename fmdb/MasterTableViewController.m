@@ -192,11 +192,12 @@ NSArray *sectionList;
     NSArray *items = [dataSource objectForKey:sectionName];
     
     // セルにテキストを設定
+    self.view.backgroundColor = [UIColor colorWithRed:215.0/255.0 green:228.0/255.0 blue:189.0/255.0 alpha:1.0];
     Text *text = [items objectAtIndex:indexPath.row];
     cell.textLabel.text = text.word;
     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-    cell.textLabel.textColor = [UIColor blueColor]; // セル文字色
-    cell.backgroundColor = [UIColor purpleColor]; // セル背景色
+    cell.textLabel.textColor = [UIColor blackColor]; // セル文字色
+    cell.backgroundColor = [UIColor colorWithRed:235/255.0 green:241/255.0 blue:222/255.0 alpha:1.0]; // セル背景色
     
     
     return cell;
@@ -237,11 +238,12 @@ NSArray *sectionList;
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
     UIView *sectionView = [[UIView alloc] init];
     
-    sectionView.backgroundColor = [UIColor redColor];
+    //sectionView.backgroundColor = [UIColor redColor];
     
     UILabel *sectionLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 320.0f, 20.0f)];
-    sectionLabel.textColor = [UIColor yellowColor]; // 文字色
-    sectionLabel.backgroundColor = [UIColor redColor]; // 背景色
+    sectionLabel.textColor = [UIColor whiteColor]; // 文字色
+    sectionLabel.backgroundColor = [UIColor colorWithRed:0.31 green:0.384 blue:0.156 alpha:1.0];
+    //[UIColor colorWithRed:215.0/255.0 green:228.0/255.0 blue:189.0/255.0 alpha:1.0]; // 背景色
     sectionLabel.text = [sectionList objectAtIndex:section];
     [sectionView addSubview:sectionLabel];
     
