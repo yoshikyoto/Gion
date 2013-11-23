@@ -34,7 +34,7 @@ NSArray *sectionList;
 // データベースからデータをロードする
 - (void)loadDataFromDB
 {
-    NSLog(@"%s", __func__);
+    //NSLog(@"%s", __func__);
     // このへんは呪文（サンプルのコピペ）
     
     NSFileManager *fileManager = [NSFileManager defaultManager];
@@ -115,10 +115,7 @@ NSArray *sectionList;
         } else if ([text.word hasPrefix:@"わ"] == YES || [text.word hasPrefix:@"を"] == YES || [text.word hasPrefix:@"ん"] == YES) {
             [waGyo addObject:text];
         }
-        
-        
     }
-    
     [rs close];
     [db close];
     
@@ -134,38 +131,20 @@ NSArray *sectionList;
     
     // データベースをロード
     [self loadDataFromDB];
-    
-    sectionList = [NSArray arrayWithObjects:@"あ", @"か", @"さ", @"た", @"な", @"は",@"ま",@"や",@"ら",@"わ",nil];
-    //    sectionList = [NSArray arrayWithObjects:@"あ行", @"か行", @"さ行", @"た行", @"な行", @"は行",@"ま行",@"や行",@"ら行",@"わ行",nil];
-    //    NSArray *datas = [NSArray arrayWithObjects:aGyo, kaGyo, saGyo, taGyo, naGyo, haGyo, maGyo, yaGyo, raGyo, waGyo, nil];
-    //dataSource = [NSDictionary dictionaryWithObjects:datas forKeys:sectionList];
+
+    sectionList = [NSArray arrayWithObjects:@"あ行", @"か行", @"さ行", @"た行", @"な行", @"は行", @"ま行", @"や行", @"ら行", @"わ行", nil];
     dataSource = [NSDictionary dictionaryWithObjectsAndKeys:
-                  aGyo, @"あ",
-                  kaGyo, @"か",
-                  saGyo, @"さ",
-                  taGyo, @"た",
-                  naGyo, @"な",
-                  haGyo, @"は",
-                  maGyo, @"ま",
-                  yaGyo, @"や",
-                  raGyo, @"ら",
-                  waGyo, @"わ",
+                  aGyo, @"あ行",
+                  kaGyo, @"か行",
+                  saGyo, @"さ行",
+                  taGyo, @"た行",
+                  naGyo, @"な行",
+                  haGyo, @"は行",
+                  maGyo, @"ま行",
+                  yaGyo, @"や行",
+                  raGyo, @"ら行",
+                  waGyo, @"わ行",
                   nil];
-    /*
-     dataSource = [NSDictionary dictionaryWithObjectsAndKeys:
-     aGyo, @"あ行",
-     kaGyo, @"か行",
-     saGyo, @"さ行",
-     taGyo, @"た行",
-     naGyo, @"な行",
-     haGyo, @"は行",
-     maGyo, @"ま行",
-     yaGyo, @"や行",
-     raGyo, @"ら行",
-     waGyo, @"わ行",
-     nil];
-     */
-    
 }
 
 - (void)didReceiveMemoryWarning
@@ -182,9 +161,7 @@ NSArray *sectionList;
     return [sectionList count];
 }
 
-/**
- * 指定されたセクションのセクション名を返す
- */
+// 指定されたセクションのセクション名を返す
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
     
@@ -193,8 +170,6 @@ NSArray *sectionList;
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    // Return the number of rows in the section.
-    //    return [mTexts count];
     NSString *sectionName = [sectionList objectAtIndex:section];
     
     return [[dataSource objectForKey:sectionName] count];
@@ -210,15 +185,6 @@ NSArray *sectionList;
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier] ;
     }
     
-    /*
-     // 行(intexPath.row)ごとにtextLabelとdetailTextLabelに表示したいデータを代入
-     Text *text = [mTexts objectAtIndex:indexPath.row];
-     cell.textLabel.text = text.word;
-     //    cell.detailTextLabel.text = text.text;
-     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-     */
-    
-    
     // セクション名を取得する
     NSString *sectionName = [sectionList objectAtIndex:indexPath.section];
     
@@ -229,6 +195,8 @@ NSArray *sectionList;
     Text *text = [items objectAtIndex:indexPath.row];
     cell.textLabel.text = text.word;
     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+    cell.textLabel.textColor = [UIColor blueColor]; // セル文字色
+    cell.backgroundColor = [UIColor purpleColor]; // セル背景色
     
     
     return cell;
@@ -244,27 +212,42 @@ NSArray *sectionList;
     Text *sender_text = [items objectAtIndex:indexPath.row];
     
     DetailViewController *detailViewController = [[DetailViewController alloc] initWithText:sender_text];
-    //DetailViewController *detailViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"DetailView"];
-    //NSString *sectionName = [sectionList objectAtIndex:indexPath.section];
-    //NSArray *items = [dataSource objectForKey:sectionName];
-    
-    //detailViewController.title = @"辞書 - ";
-    //detailViewController.text = [items objectAtIndex:indexPath.row];
+
     [self.navigationController pushViewController:detailViewController animated:YES];
 }
 
-/*
- //ヘッダーにつける文字列を指定する。ここでは配列を作ってその文字列を表示させている。
- -(NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
- {
- return sectionList[section];
- }
- */
-//TableViewのインデックスリストに表示させたい文字列を設定する。
+
+// TableViewのインデックスリストに表示させたい文字列を設定
 - (NSArray *)sectionIndexTitlesForTableView:(UITableView *)tableView
 {
-    return sectionList;
+    NSArray* sectionListwithDots = [NSArray arrayWithObjects:@"あ", @"●", @"か", @"●", @"さ", @"●", @"た", @"●", @"な", @"●", @"は", @"●", @"ま", @"●", @"や", @"●", @"ら", @"●", @"わ",nil];
+    //return sectionList;
+    return sectionListwithDots;
 }
+
+// インデックスリストの各値をおした時にどこのセクションに飛ばすかを設定
+- (NSInteger)tableView:(UITableView *)tableView sectionForSectionIndexTitle:(NSString *)title atIndex:(NSInteger)index
+{
+    if(index%2 == 0) return index/2;
+    else return (index-1)/2;
+}
+
+
+// セクションの背景色や文字色を設定
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+    UIView *sectionView = [[UIView alloc] init];
+    
+    sectionView.backgroundColor = [UIColor redColor];
+    
+    UILabel *sectionLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 320.0f, 20.0f)];
+    sectionLabel.textColor = [UIColor yellowColor]; // 文字色
+    sectionLabel.backgroundColor = [UIColor redColor]; // 背景色
+    sectionLabel.text = [sectionList objectAtIndex:section];
+    [sectionView addSubview:sectionLabel];
+    
+    return sectionView;
+}
+
 
 
 @end
