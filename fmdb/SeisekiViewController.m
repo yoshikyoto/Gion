@@ -125,6 +125,29 @@
         }
     }
      */
+    FMDatabase *db = tabbar.db;
+    if(![db open])
+    {
+        NSLog(@"Err %d: %@", [db lastErrorCode], [db lastErrorMessage]);
+    }
+    
+    [db setShouldCacheStatements:YES];
+    
+    // SQL文を生成．ここではすべてをid順に持ってくるという文
+    NSString* sql = @"SELECT * FROM text ORDER BY textid DESC;";
+    FMResultSet* rs = [db executeQuery:sql];
+    while([rs next]) {
+        if([rs intForColumn:@"right"] > 0){
+            //NSLog(@"%@ 習得", text.word);
+            right_texts_count++;
+        }else{
+            //NSLog(@"%@　未習得", text.word);
+        }
+    }
+    
+    [rs close];
+    [db close];
+    
     _rightAllLabel.text = [NSString stringWithFormat:@"(正解数 %d問 / 全 %d問)", right_texts_count, all_texts_count];
 
     
