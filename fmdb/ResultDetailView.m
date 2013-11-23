@@ -23,6 +23,7 @@
         // ボタン5つ
         question_array = [[NSMutableArray alloc] init];
         question_button_array = [[NSMutableArray alloc] init];
+        kore_array = [[NSMutableArray alloc] init];
         
         // ここにすべての選択肢を記録
         all_answer_array = [[NSMutableArray alloc] init];
@@ -43,10 +44,10 @@
             // 正解したかどうかで背景を色分けしてみる
             if(qvc.result){
                 // 正解
-                question_space.backgroundColor =[UIColor colorWithRed:1.0 green:0.85 blue:0.85 alpha:1.0];
+                question_space.backgroundColor = [UIColor colorWithRed:235/255.0 green:241/255.0 blue:222/255.0 alpha:1.0];
             }else{
                 // 間違い
-                question_space.backgroundColor = [UIColor colorWithRed:0.85 green:0.85 blue:1.0 alpha:1.0];
+                question_space.backgroundColor = [UIColor colorWithRed:1.0 green:0.9 blue:0.9 alpha:1.0];
             }
             position_y += 41;
             
@@ -55,7 +56,7 @@
             UIButton *question_button = [UIButton buttonWithType:UIButtonTypeCustom];
             question_button.frame = CGRectMake(0, 0, 320, 40);
             //question_button.backgroundColor = [UIColor grayColor];
-            UILabel *question_Label = [[UILabel alloc] initWithFrame:CGRectMake(5, 0, 310, 40)];
+            UILabel *question_Label = [[UILabel alloc] initWithFrame:CGRectMake(5, 0, 300, 40)];
             question_Label.text = text.text;
             question_Label.numberOfLines = 2;
             question_Label.font = [UIFont systemFontOfSize:16];
@@ -64,6 +65,22 @@
             [question_button addSubview:question_Label];
             [question_space addSubview:question_button];
             [question_button_array addObject:question_button];
+            
+            // グラデーション
+            CAGradientLayer *gradient = [CAGradientLayer layer];
+            gradient.frame = question_button.bounds;
+            gradient.colors = @[
+                                (id)[[UIColor colorWithRed:0 green:0 blue:0 alpha:0] CGColor],
+                                (id)[[UIColor colorWithRed:0 green:0 blue:0 alpha:0.05] CGColor]
+                                ];
+            gradient.cornerRadius = 8;
+            [question_button.layer insertSublayer: gradient atIndex: 0];
+            // ここまでグラデーション
+            
+            UIImageView *kore_image = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"shita.png"]];
+            kore_image.frame = CGRectMake(300, 14, 16, 12);
+            [question_button addSubview:kore_image];
+            [kore_array addObject:kore_image];
             
             NSMutableArray *answer_array = [qnc.answerDetail objectAtIndex:i];
             // 選択肢
@@ -83,15 +100,20 @@
                 UIButton *answer_button = [qvc.answerButtonArray objectAtIndex:j];
                 if(answer_button.tag == qvc.correctAnswerInt){
                     // 正解の選択肢だった場合、◯を表示
-                    UILabel *result_label = [[UILabel alloc] initWithFrame:CGRectMake(280, 0, 40, 40)];
+                    UILabel *result_label = [[UILabel alloc] initWithFrame:CGRectMake(240, 0, 40, 40)];
                     result_label.text = @"◯";
                     [selection_button addSubview:result_label];
                 }else if(qvc.selectAnswertInt == j){
-                    UILabel *result_label = [[UILabel alloc] initWithFrame:CGRectMake(280, 0, 40, 40)];
+                    UILabel *result_label = [[UILabel alloc] initWithFrame:CGRectMake(240, 0, 40, 40)];
                     result_label.text = @"×";
                     [selection_button addSubview:result_label];
                 }
                 [question_space addSubview:selection_button];
+                
+                // > これ
+                kore_image = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"migi.png"]];
+                kore_image.frame = CGRectMake(300, 14, 9, 12);
+                [selection_button addSubview:kore_image];
             }
             
             
@@ -144,11 +166,14 @@
     int position_y = 0;
     for(int i = 0; i < [question_button_array count]; i++){
         UIButton *question_button = [question_button_array objectAtIndex:i];
+        UIImageView *kore_image = [kore_array objectAtIndex:i];
         if(question_button.tag == 1){
             [question_button superview].frame = CGRectMake(0, position_y, 320, 205);
+            kore_image.transform = CGAffineTransformMakeRotation(-M_PI);
             position_y += 205;
         }else{
             [question_button superview].frame = CGRectMake(0, position_y, 320, 40);
+            kore_image.transform = CGAffineTransformMakeRotation(0);
             position_y += 41;
         }
     }

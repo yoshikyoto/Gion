@@ -132,7 +132,7 @@
     
     // テスト画面に進むボタン
     UIButton *question_button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    question_button.frame = CGRectMake(0, screenHeight - 70, 320, 40);
+    question_button.frame = CGRectMake(0, screenHeight - 70, 320, 42);
     question_button.backgroundColor = buttonColor;
     [question_button setTitleColor:buttonTextColor forState:UIControlStateNormal];
     [question_button setTitle:@" テストを受ける ＞" forState:UIControlStateNormal];
@@ -411,11 +411,10 @@
     NSLog(@"並び替え後");
     [self printArray:after];
      */
-    _todaysTexts = [self shuffleArray:_todaysTexts];
     
     QuestionNavigationController *qnc = [[QuestionNavigationController alloc] initWithRootViewController:qvc];
     qnc.allTexts = _allTexts;
-    qnc.selectedTexts = _todaysTexts;
+    qnc.selectedTexts = [self shuffleArray:_todaysTexts];
     
     [self presentViewController:qnc animated:YES completion:nil];
 }

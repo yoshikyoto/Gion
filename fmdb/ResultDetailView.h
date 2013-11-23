@@ -9,9 +9,11 @@
 #import <UIKit/UIKit.h>
 #import "QuestionNavigationController.h"
 
+
 @interface ResultDetailView : UIScrollView{
     NSMutableArray *question_array;
     NSMutableArray *question_button_array;
+    NSMutableArray *kore_array;
     NSMutableArray *all_answer_array;
     int correct_count;
 }

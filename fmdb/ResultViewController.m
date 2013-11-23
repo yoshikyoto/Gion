@@ -37,25 +37,32 @@
     self.navigationItem.title = @"結果";
     
     // 結果
+    /* 結果部分の背景のやつだけどいらなさそう
     UILabel *result_bg = [[UILabel alloc] initWithFrame:CGRectMake(0, 65, 320, 60)];
     result_bg.backgroundColor = lightColor;
     [[self view] addSubview:result_bg];
+     */
     
-    UILabel *result_label1 = [[UILabel alloc] initWithFrame:CGRectMake(40, 70, 80, 30)];
+    UILabel *result_label1 = [[UILabel alloc] initWithFrame:CGRectMake(40, 100, 80, 30)];
     result_label1.text = @"5問中";
+    result_label1.textAlignment = NSTextAlignmentRight;
     [[self view] addSubview:result_label1];
     
     // NavigationController から正解数を取得
     QuestionNavigationController *qnc = (QuestionNavigationController *)self.navigationController;
-    UILabel *result_label2 = [[UILabel alloc] initWithFrame:CGRectMake(120, 70, 80, 30)];
+    UILabel *result_label2 = [[UILabel alloc] initWithFrame:CGRectMake(120, 100, 80, 30)];
     result_label2.text = [NSString stringWithFormat:@"%d", qnc.correctCount];
+    result_label2.textAlignment = NSTextAlignmentCenter;
     [[self view] addSubview:result_label2];
+    result_label2.font = [UIFont boldSystemFontOfSize:26];
+    result_label2.textColor = [UIColor redColor];
     NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
     [defaults setInteger:qnc.correctCount forKey:@"TODAYSRESULT"];
 
 
-    UILabel *result_label3 = [[UILabel alloc] initWithFrame:CGRectMake(200, 70, 80, 30)];
+    UILabel *result_label3 = [[UILabel alloc] initWithFrame:CGRectMake(200, 100, 80, 30)];
     result_label3.text = @"問正解";
+    result_label3.textAlignment = NSTextAlignmentLeft;
     [[self view] addSubview:result_label3];
     
     // 結果詳細（間違えた問題とか）
