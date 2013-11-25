@@ -40,7 +40,13 @@
     _text = [qnc.selectedTexts objectAtIndex:_questionNum];
     NSString *qsentence = [_text.text stringByReplacingOccurrencesOfString :_text.word withString:@"_____"];
     NSMutableArray *all_texts = [qnc.allTexts mutableCopy];
-    [all_texts removeObject:_text];
+    // [all_texts removeObject:_text];
+    for(int i =0 ;i < [all_texts count]; i++){
+        Text *tmpText = [all_texts objectAtIndex:i];
+        if([tmpText.word isEqualToString:_text.word]) {
+            [all_texts removeObjectAtIndex:i];
+        }
+    }
     NSMutableArray *answer_detail_array = [[NSMutableArray alloc] init];
     
     UILabel *question_background = [[UILabel alloc] initWithFrame:CGRectMake(0, 60, 320, 200)];
