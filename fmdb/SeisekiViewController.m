@@ -43,6 +43,9 @@
      必要なデータを取得し代入していく
      2013.11.19 by horita
      **********************/
+    
+    int position_y = 50;
+    
 
     // NSUserDefaultから継続日数と最高継続日数を取得
     NSUserDefaults* ud = [NSUserDefaults standardUserDefaults];
@@ -171,8 +174,7 @@
     _todayView.backgroundColor = lightColor;
     _totalView.backgroundColor = lightColor;
     
-    // 画像（とりあえず）
-    [_imageTotal setImage:[UIImage imageNamed:@"wrong.png"]];
+
 
 
 
