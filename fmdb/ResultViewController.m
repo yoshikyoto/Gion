@@ -68,7 +68,7 @@
     // 結果詳細（間違えた問題とか）
     ResultDetailView *detail_view = [[ResultDetailView alloc] initWithQNC:qnc];
     //    tango_view.frame = CGRectMake(0, 60, 320, screenHeight - 80);
-    detail_view.frame = CGRectMake(0, 125, 320, screenHeight - 80);
+    detail_view.frame = CGRectMake(0, 125, 320, screenHeight - 130);
     // detail_view.backgroundColor = [UIColor colorWithRed:0.9 green:0.9 blue:0.9 alpha:1.0];
     [[self view] addSubview:detail_view];
     
