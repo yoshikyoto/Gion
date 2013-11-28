@@ -148,6 +148,7 @@
         
     }
     //NSLog( [lastDate description] );
+    [defaults setBool:true forKey:@"IS_TESTED"];
     [defaults synchronize];
 }
 

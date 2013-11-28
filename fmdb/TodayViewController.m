@@ -39,6 +39,7 @@
     //CGRect screen_rect = [UIScreen mainScreen].applicationFrame;
     
     
+    /*
     // NSUserDefaultsを使って継続日数を管理する
     NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
     NSMutableDictionary *md = [NSMutableDictionary dictionary];
@@ -51,6 +52,7 @@
     [md setObject:@"1" forKey:@"RUNNING"]; // RUNNINGは今の連続起動日数
     [md setObject:@"1" forKey:@"RUNNINGMAX"]; // RUNNINGMAXは過去で一番長い連続起動日数
     [defaults registerDefaults:md];
+     */
     
     
     // 単語を表示するためのビュー (デバッグ用に色をつけてます)
@@ -72,6 +74,8 @@
     _todaysTexts = [[NSMutableArray alloc] init];
 
     
+    NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
+    
     if([self isFirstLaunchToday]){
         NSLog(@"%s 今日初回起動である", __func__);
         [self initTodaysTexts];
@@ -81,8 +85,11 @@
         _todaysTexts = [self shuffleArray:_todaysTexts];
         
         [self saveTodaysTexts];
-        [question_button removeFromSuperview];
+        //[question_button removeFromSuperview];
         [self viewQuestionButton];
+        
+        [defaults setBool:false forKey:@"IS_TESTED"];
+        [defaults synchronize];
         
         UIAlertView *alert = [[UIAlertView alloc] init];
         alert.title = @"今日の単語を更新しました！";
@@ -93,7 +100,7 @@
         NSLog(@"%s 今日初回起動でない", __func__);
         [self loadTodaysTexts];
         
-
+        /*
         // この起動が今日1回目かチェック
         NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
         NSDate* date = [NSDate dateWithTimeIntervalSinceNow:[[NSTimeZone systemTimeZone] secondsFromGMT]]; // タイムゾーンに合わせて現在日時取得
@@ -102,11 +109,14 @@
         df.dateFormat = @"yyyy/MM/dd";
         NSString *str1 = [df stringFromDate:date]; // 今回起動（日付のみ）
         NSString *str2 = [df stringFromDate:lastDate]; // 前回起動（日付のみ）
+         */
 
-        [question_button removeFromSuperview];
-        if ([str1 isEqualToString:str2]) {
+
+        //NSLog(@"date %@ lastDate %@", str1, str2);
+        if ([defaults boolForKey:@"IS_TESTED"]) {
             // 今日のテストが終わっている
             // [self viewResultButton:nil];
+            [question_button removeFromSuperview];
         }else{
             // 今日のテストが終わっていない
             [self viewQuestionButton];
@@ -211,6 +221,8 @@
 }
 
 - (void)viewResultButton:(id)sender{
+    
+    [question_button removeFromSuperview];
     NSLog(@"%s 結果へボタンを表示したい", __func__);
     question_button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
     question_button.frame = CGRectMake(0, screenHeight - 70, 320, 42);
